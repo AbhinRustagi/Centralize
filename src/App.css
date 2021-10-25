@@ -41,7 +41,6 @@ h1 {
   width: 100%;
   background-color: #345b63;
   display: flex;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   overflow: hidden;
   flex-wrap: wrap;
   margin-bottom: 30px;
@@ -61,6 +60,7 @@ h1 {
 .phase:hover,
 .phase.current {
   background-color: #d4ecdd;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
 }
 
 .phase:hover h4,
@@ -96,6 +96,34 @@ h1 {
   font-size: 800%;
 }
 
+.giant_timer .progress_bar {
+  width: 100%;
+  position: relative;
+  height: 10px;
+  background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+}
+
+.progress_bar_container {
+  margin-top: 25px;
+  background-image: linear-gradient(
+    120deg,
+    rgba(253, 251, 251, 0.25) 0%,
+    rgba(235, 237, 238, 0.25) 100%
+  );
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+@keyframes reduceWidth {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0;
+  }
+}
+
 .btns {
   display: flex;
   gap: 20px;
@@ -115,6 +143,7 @@ h1 {
   align-items: center;
   gap: 20px;
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
 }
 
 .btns p {

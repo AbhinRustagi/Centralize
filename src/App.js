@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 const useAudio = (url) => {
@@ -26,6 +26,7 @@ function App() {
   const [timerSec, setTimerSec] = useState("00");
   const [phase, setPhase] = useState(0);
   const [timerId, setTimerId] = useState(null);
+  const progressBar = useRef(null);
   const [playing, toggle] = useAudio(
     "https://assets.coderrocketfuel.com/pomodoro-times-up.mp3"
   );
@@ -40,10 +41,23 @@ function App() {
     setPhase(phase);
     setTimerMin("00");
     setTimerSec("00");
+    setAnimation();
+  };
+
+  const setAnimation = (duration) => {
+    console.log(duration);
+    if (duration)
+      progressBar.current.style.animation = `reduceWidth ease-in-out ${String(
+        duration
+      )}s`;
+    else {
+      progressBar.current.style.animation = "";
+    }
   };
 
   const startTimer = () => {
     clearTimer();
+    setAnimation();
     let duration;
 
     if (phase === "1" || phase === "3") {
@@ -55,11 +69,11 @@ function App() {
       return;
     }
 
-
     var timer = duration,
       minutes,
       seconds;
 
+    setAnimation(duration);
     let id = setInterval(function () {
       minutes = parseInt(timer / 60, 10);
       seconds = parseInt(timer % 60, 10);
@@ -79,6 +93,7 @@ function App() {
           toggle();
         }
         clearTimer();
+        setAnimation();
       }
     }, 1000);
 
@@ -91,11 +106,11 @@ function App() {
 
       <div className="btns">
         <div onClick={startTimer} className="btn_start">
-          <i class="fas fa-play"></i>
+          <i className="fas fa-play"></i>
           <p>Start</p>
         </div>
         {/* <div className="btn_pause">
-          <i class="fas fa-pause"></i>
+          <i className="fas fa-pause"></i>
           <p>Pause</p>
         </div> */}
         <div
@@ -104,7 +119,7 @@ function App() {
           }}
           className="btn_redo"
         >
-          <i class="fas fa-redo"></i>
+          <i className="fas fa-redo"></i>
           <p>Reset</p>
         </div>
       </div>
@@ -112,6 +127,9 @@ function App() {
         <h2>
           {timerMin}:{timerSec}
         </h2>
+        <div className="progress_bar_container">
+          <div className="progress_bar" ref={progressBar}></div>
+        </div>
       </div>
       <div className="phases">
         <div
