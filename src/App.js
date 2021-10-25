@@ -1,11 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
+
+const useAudio = (url) => {
+  const [audio] = useState(new Audio(url));
+  const [playing, setPlaying] = useState(false);
+
+  const toggle = () => setPlaying(!playing);
+
+  useEffect(() => {
+    playing ? audio.play() : audio.pause();
+  }, [playing]);
+
+  useEffect(() => {
+    audio.addEventListener("ended", () => setPlaying(false));
+    return () => {
+      audio.removeEventListener("ended", () => setPlaying(false));
+    };
+  }, []);
+
+  return [playing, toggle];
+};
 
 function App() {
   const [timerMin, setTimerMin] = useState("00");
   const [timerSec, setTimerSec] = useState("00");
   const [phase, setPhase] = useState(0);
   const [timerId, setTimerId] = useState(null);
+  const [playing, toggle] = useAudio(
+    "https://assets.coderrocketfuel.com/pomodoro-times-up.mp3"
+  );
 
   const clearTimer = () => {
     clearInterval(timerId);
@@ -27,7 +50,12 @@ function App() {
       duration = 60 * 25;
     } else if (phase === "2" || phase === "4") {
       duration = 60 * 5;
+    } else {
+      alert("Please Select a Phase.");
+      return;
     }
+
+    duration = 60 * 0.25;
 
     var timer = duration,
       minutes,
@@ -44,7 +72,14 @@ function App() {
       setTimerSec(seconds);
 
       if (--timer < 0) {
-        timer = duration;
+        clearInterval(id);
+        if (playing) {
+          toggle();
+          toggle();
+        } else {
+          toggle();
+        }
+        clearTimer();
       }
     }, 1000);
 
