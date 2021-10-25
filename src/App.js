@@ -55,7 +55,6 @@ function App() {
       return;
     }
 
-    duration = 60 * 0.25;
 
     var timer = duration,
       minutes,
