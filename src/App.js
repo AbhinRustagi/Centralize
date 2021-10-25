@@ -117,6 +117,11 @@ function App() {
           <p>5 minutes</p>
         </div>
       </div>
+      <p className="footer">
+        &copy; Abhin Rustagi | 2021.
+        <br />
+        <a href="https://www.abhinrustagi.xyz">www.abhinrustagi.xyz</a>
+      </p>
     </div>
   );
 }
