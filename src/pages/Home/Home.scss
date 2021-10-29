@@ -1,0 +1,104 @@
+@import "../../styles/main.scss";
+
+.home-signup-btn-holder {
+  position: relative;
+  width: fit-content;
+
+  img {
+    object-fit: contain;
+    position: absolute;
+    z-index: -1;
+    transform: scaleX(-1);
+    width: 130px;
+    top: 30px;
+    right: -65px;
+  }
+}
+
+#hero,
+#features {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.hero-img {
+  flex: 1;
+  min-width: 300px;
+
+  img {
+    display: block;
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 300px;
+
+  p {
+    margin: 30px 0;
+    font-weight: 500;
+    color: $green-100;
+  }
+}
+
+#features,
+#technologies {
+  margin-top: calc(150px + 3%);
+}
+
+.features-text,
+.features-img {
+  flex: 1;
+  min-width: 300px;
+}
+
+.features-text {
+  h2 {
+    margin-bottom: 30px;
+  }
+
+  ul {
+    list-style: none;
+
+    li {
+      display: flex;
+      gap: 20px;
+      font-weight: 500;
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+      color: $green-300;
+      align-items: center;
+
+      svg {
+        width: 35px;
+        height: 35px;
+      }
+    }
+  }
+}
+
+.features-img {
+  text-align: center;
+
+  img {
+    width: 80%;
+  }
+}
+
+#technologies {
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  svg {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+  }
+}

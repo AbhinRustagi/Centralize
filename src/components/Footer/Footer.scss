@@ -1,0 +1,10 @@
+@import "../../styles/main.scss";
+
+footer {
+  padding: {
+    top: 50px;
+    bottom: 50px;
+  }
+  border-top: 1px solid $green-100;
+  margin-top: 150px;
+}

@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./App.css";
+import "./styles/main.scss";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
+import { Home, Login } from "./pages";
+import { Header, Footer, Button } from "./components";
 
 const useAudio = (url) => {
   const [audio] = useState(new Audio(url));
@@ -21,7 +29,7 @@ const useAudio = (url) => {
   return [playing, toggle];
 };
 
-function App() {
+function Pomodoro() {
   const [timerMin, setTimerMin] = useState("00");
   const [timerSec, setTimerSec] = useState("00");
   const [phase, setPhase] = useState(0);
@@ -175,6 +183,26 @@ function App() {
         <a href="https://www.abhinrustagi.xyz">www.abhinrustagi.xyz</a>
       </p>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <Router>
+        <Header />
+        <Switch>
+          <main className="container">
+            <Route component={Home} path="/" exact />
+            <Route component={Login} path="/login" exact />
+            <Route path="/*" exact>
+              <Redirect to="/" />
+            </Route>
+          </main>
+        </Switch>
+        <Footer />
+      </Router>
+    </>
   );
 }
 

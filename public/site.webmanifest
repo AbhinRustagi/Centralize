@@ -1,6 +1,6 @@
 {
-  "name": "Pomodoro",
-  "short_name": "Pomodoro",
+  "name": "Centralize - Productivity Partner",
+  "short_name": "Centralize",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#80ed99",
-  "background_color": "#112031",
+  "theme_color": "#69A297",
+  "background_color": "#F0EEE5",
   "display": "standalone"
 }

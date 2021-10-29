@@ -1,0 +1,74 @@
+@import "../../styles/main.scss";
+
+header {
+  padding: 20px 0;
+  background-color: $white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: calc(50px + 3%);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav-brand {
+  @media screen and (max-width: 400px) {
+    width: 80%;
+  }
+}
+
+.navbar > nav {
+  @media screen and (max-width: 400px) {
+    width: 100%;
+  }
+}
+
+.navbar > nav > ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  font-weight: 500;
+  flex: 1;
+  color: $green-300;
+
+  @media screen and (max-width: 400px) {
+    flex-direction: column;
+    gap: 5px;
+    max-height: 0;
+    overflow: hidden;
+
+    .login-btn {
+      display: none;
+    }
+
+    li {
+      width: 100%;
+    }
+
+    li > a {
+      display: block;
+      padding: 5px 0;
+      width: 100%;
+    }
+
+    &.expanded {
+      margin-top: 10px;
+      max-height: 100vh;
+      overflow: visible;
+    }
+  }
+}
+
+.menu-btn {
+  width: 25px;
+  height: 25px;
+  display: none;
+
+  @media screen and (max-width: 400px) {
+    display: block;
+  }
+}

@@ -1,0 +1,43 @@
+@import "./fonts";
+@import "./variables";
+@import "./typography";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  transition: 0.3s ease-in-out;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: $background;
+  color: $dark;
+  font-family: $sans-serif;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1240px;
+  width: 100%;
+  margin: {
+    left: auto;
+    right: auto;
+  }
+  padding: {
+    left: 20px;
+    right: 20px;
+  }
+}
+
+.border-rounded {
+  border-radius: $border-radius;
+}
