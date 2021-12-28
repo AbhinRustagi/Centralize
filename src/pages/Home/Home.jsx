@@ -1,4 +1,5 @@
 import React from "react";
+import "./Home.scss";
 import {
   FaGoogle,
   FaBan,
@@ -11,9 +12,26 @@ import { Button } from "../../components";
 import ArrowElement1 from "../../media/img/arrow-element.svg";
 import LandingImg from "../../media/img/landing.svg";
 import LandingImg2 from "../../media/img/landing2.svg";
-import "./Home.scss";
+import {
+  browserPopupRedirectResolver,
+  getRedirectResult,
+  GoogleAuthProvider,
+  signInWithRedirect,
+} from "firebase/auth";
+import { auth, provider } from "../../utils/firebase";
+import { useHistory } from "react-router-dom";
 
 const Home = () => {
+  const signIn = async () => {
+    await signInWithRedirect(
+      auth,
+      provider,
+      browserPopupRedirectResolver
+    ).catch((err) => {
+      console.log(err);
+    });
+  };
+
   return (
     <>
       <section id="hero">
@@ -24,7 +42,7 @@ const Home = () => {
           <h1>Productivity Partner for your everyday life.</h1>
           <p className="lg">Manage time. Stress less. Do more.</p>
           <div className="home-signup-btn-holder">
-            <Button type="anchor" btnType="light" href="/register">
+            <Button onClick={signIn} btnType="light">
               <FaGoogle />
               Sign Up with Google
             </Button>
