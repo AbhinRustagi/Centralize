@@ -1,8 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Helmet from "react-helmet";
+import { showToast } from "../../components";
+import useUserInfo from "../../context/user";
+import { signIn } from "../../utils";
 
 const Login = () => {
+  const [input, setInput] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
+  const [{ user }, dispatch] = useUserInfo();
+
+  const proceedToLogIn = async () => {
+    await signIn(input.email, input.password).then((res) => {
+      if (!res.success) {
+        showToast("There was an error", "danger");
+        return;
+      }
+      dispatch({ type: "SET_USER", user: res.user });
+      navigate(`/cp/${user.displayName}`, { replace: true });
+    });
+  };
+
   return (
     <>
       <Helmet>
@@ -15,7 +33,12 @@ const Login = () => {
             Email Address
           </label>
           <input
-            type="text"
+            value={input.email}
+            name="email"
+            onChange={(e) => {
+              setInput({ ...input, [e.target.name]: e.target.value });
+            }}
+            type="email"
             className="w-full text-base focus:rounded-none focus:outline-none block border border-solid border-gray-800 py-2 px-3 mb-5"
           />
           <label className="block mb-1" htmlFor="">
@@ -23,12 +46,20 @@ const Login = () => {
           </label>
           <input
             type="password"
+            value={input.password}
+            name="password"
+            onChange={(e) => {
+              setInput({ ...input, [e.target.name]: e.target.value });
+            }}
             className="w-full focus:rounded-none focus:outline-none text-base block border border-solid border-gray-800 py-2 px-3 mb-2"
           />
           <small className="block text-sm mb-5 underline text-right">
             Forgot Password?
           </small>
-          <button className="py-3 px-8 font-medium text-base bg-blue-800 text-white hover:bg-blue-800/30 hover:text-blue-800 border-solid border border-blue-800 w-full">
+          <button
+            onClick={proceedToLogIn}
+            className="py-3 px-8 font-medium text-base bg-blue-800 text-white hover:bg-blue-800/30 hover:text-blue-800 border-solid border border-blue-800 w-full"
+          >
             Continue
           </button>
           <small className="block text-sm mt-5 underline">
