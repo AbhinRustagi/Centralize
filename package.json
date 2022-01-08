@@ -1,28 +1,27 @@
 {
-  "name": "centralize-app",
+  "name": "centralize",
   "version": "0.1.0",
   "private": true,
+  "author": "Abhin Rustagi",
   "dependencies": {
-    "@bigheads/core": "^0.3.3",
     "@emotion/react": "^11.7.1",
-    "axios": "^0.24.0",
-    "firebase": "^9.2.0",
-    "framer-motion": "^5.0.0",
-    "helmet": "^4.6.0",
+    "firebase": "^9.6.2",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
     "react-icons": "^4.3.1",
-    "react-router-dom": "^5.3.0",
-    "react-scripts": "^4.0.3",
-    "sass": "^1.43.4",
-    "tailwindcss": "^3.0.7",
-    "twin.macro": "^2.8.2"
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "5.0.0",
+    "sass": "^1.45.2",
+    "usetimer-react": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "firebase deploy --only hosting"
   },
   "eslintConfig": {
     "extends": [
@@ -41,5 +40,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.5",
+    "tailwindcss": "^3.0.12"
   }
 }
