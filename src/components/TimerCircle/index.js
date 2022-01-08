@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef } from "react";
 import { css, jsx } from "@emotion/react";
 
@@ -10,6 +11,8 @@ const TimerCircle = ({
   // Hooks
   const FULL_DASH_ARRAY = 283;
   const circlePath = useRef(null);
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (timeLeft <= 0) {
       setTimeout(() => {
@@ -29,8 +32,11 @@ const TimerCircle = ({
   // styles
   const base_timer = css`
     position: relative;
-    height: 300px;
-    width: 300px;
+    margin: auto;
+    max-height: 400px;
+    max-width: 400px;
+    height: 100%;
+    width: 100%;
   `;
 
   const circle = css`
@@ -40,7 +46,7 @@ const TimerCircle = ({
 
   const path_elapsed = css`
     stroke-width: 7px;
-    stroke: grey;
+    stroke: #a3da8d;
   `;
 
   const label = css`
@@ -54,20 +60,20 @@ const TimerCircle = ({
     justify-content: center;
     flex-direction: column;
 
-    width: 300px;
-    height: 300px;
+    max-height: 400px;
+    max-width: 400px;
+    height: 100%;
+    width: 100%;
 
     text-align: right;
-    font-weight: 500;
+    font-weight: 600;
   `;
 
   const minutes = css`
-    font-size: 2.4rem;
-    line-height: 2.5rem;
+    font-size: 2rem;
   `;
   const seconds = css`
-    font-size: 2rem;
-    line-height: 2.2rem;
+    font-size: 1.5rem;
   `;
 
   const path_remaining = css`
@@ -84,7 +90,7 @@ const TimerCircle = ({
     /* One second aligns with the speed of the countdown timer */
     transition: 1s linear all;
 
-    color: #aefeff;
+    color: #146356;
 
     /* Allows the ring to change color when the color value updates */
     stroke: currentColor;
