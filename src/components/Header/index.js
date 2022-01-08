@@ -6,18 +6,33 @@ const Header = () => {
   const [{ user }, dispatch] = useUserInfo();
 
   return (
-    <header className="bg-lime-200 py-3 border-b border-b-gray-800">
+    <header className="bg-sky-200 py-3 border-b border-b-gray-800">
       <div className="container flex-wrap flex justify-between items-center">
         <div>
           <a className="block flex items-center gap-3" href="/">
-            <span className="font-normal text-2xl">Centralize</span>
+            <span className="font-medium text-2xl">Centralize</span>
           </a>
         </div>
         <nav>
           <ul className="flex flex-wrap items-center gap-3">
             {!user && (
               <li>
-                <Link className="px-3 py-2 font-medium inline-block" to="/guest-mode">Guest Mode</Link>
+                <Link
+                  className="px-3 py-2 font-medium inline-block hover:underline"
+                  to="/guest-mode"
+                >
+                  Guest Mode
+                </Link>
+              </li>
+            )}
+            {!user && (
+              <li>
+                <Link
+                  className="px-3 py-2 font-medium inline-block hover:underline"
+                  to="/register"
+                >
+                  Register
+                </Link>
               </li>
             )}
             {user ? (
@@ -32,7 +47,7 @@ const Header = () => {
             ) : (
               <li>
                 <Link to="/login">
-                  <button className="py-2 px-10 font-bold text-sm text-teal-700 hover:bg-teal-700/5 border-solid border border-teal-700">
+                  <button className="py-2 px-10 font-bold text-sm text-blue-800 hover:bg-blue-800/5 border-solid border border-blue-800">
                     Login
                   </button>
                 </Link>
