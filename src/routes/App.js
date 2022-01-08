@@ -11,8 +11,8 @@ function App() {
         <Header />
         <main>
           <Routes>
-            {routes.map((route) => (
-              <Route {...route} />
+            {routes.map((route, _) => (
+              <Route key={_} {...route} />
             ))}
           </Routes>
         </main>

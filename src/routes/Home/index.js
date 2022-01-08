@@ -8,7 +8,7 @@ const Home = () => {
           <h1 className="leading-relaxed font-light text-5xl mb-3">
             Your Productivity Partner
           </h1>
-          <button className="py-3 px-8 font-medium text-base bg-teal-700 text-white hover:bg-teal-700/30 hover:text-teal-700 border-solid border border-teal-700 rounded">
+          <button className="py-3 px-8 font-medium text-base bg-teal-700 text-white hover:bg-teal-700/30 hover:text-teal-700 border-solid border border-teal-700">
             Get Started
           </button>
         </div>

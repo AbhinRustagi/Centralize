@@ -231,7 +231,7 @@ module.exports = {
       150: "1.5",
       200: "2",
     },
-    container: { padding: "2em", center: true },
+    container: { padding: "1.3em", center: true },
     content: {
       none: "none",
     },
