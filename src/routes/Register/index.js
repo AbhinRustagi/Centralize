@@ -20,6 +20,7 @@ const Register = () => {
     if (user !== null) {
       navigate(`/cp/${user?.displayName}`, { replace: true });
     }
+    // eslint-disable-next-line
   }, [user]);
 
   useEffect(() => {
@@ -29,6 +30,7 @@ const Register = () => {
   }, [formInput.username]);
 
   const validateUsername = (e) => {
+    // eslint-disable-next-line
     const rx = /[A-Za-z0-9\._]+/g;
     if (!rx.test(e.key)) {
       e.preventDefault();

@@ -25,6 +25,7 @@ const GuestMode = () => {
     if (user !== null) {
       navigate(`/cp/${user?.displayName}`, { replace: true });
     }
+    // eslint-disable-next-line
   }, [user]);
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const GuestMode = () => {
       removePomodoro(currentSet?.id);
       setCurrentSet(null);
     }
+    // eslint-disable-next-line
   }, [status]);
 
   const addSet = (e) => {

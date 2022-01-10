@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import useUserInfo from "../../context/user";
 import { useParams, useNavigate } from "react-router-dom";
-import { findUserProfile } from "../../utils";
+// import { findUserProfile } from "../../utils";
 import Helmet from "react-helmet";
 
 const Profile = () => {
   const params = useParams();
   const navigate = useNavigate();
+  // eslint-disable-next-line
   const [data, setData] = useState();
-  const [{ user }, dispatch] = useUserInfo();
+  const [{ user }] = useUserInfo();
 
   useEffect(() => {
     if (user === null) {
       navigate("/", { replace: true });
     }
+    // eslint-disable-next-line
   }, [user]);
 
   // useEffect(() => {

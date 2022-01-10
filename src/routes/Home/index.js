@@ -12,6 +12,7 @@ const Home = () => {
     if (user !== null) {
       navigate(`/cp/${user?.displayName}`, { replace: true });
     }
+    // eslint-disable-next-line
   }, [user]);
 
   return (

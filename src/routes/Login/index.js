@@ -15,6 +15,7 @@ const Login = () => {
     if (user !== null) {
       navigate(`/cp/${user.displayName}`, { replace: true });
     }
+    // eslint-disable-next-line
   }, [user]);
 
   const proceedToLogIn = async (e) => {
