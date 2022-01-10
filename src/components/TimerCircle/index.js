@@ -34,8 +34,8 @@ const TimerCircle = ({
   const base_timer = css`
     position: relative;
     margin: auto;
-    max-height: 400px;
-    max-width: 400px;
+    max-height: 600px;
+    max-width: 600px;
     height: 100%;
     width: 100%;
   `;
@@ -53,15 +53,15 @@ const TimerCircle = ({
     position: absolute;
     top: 0;
     z-index: 99;
-    padding: 50px;
+    padding: 60px;
 
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     flex-direction: column;
 
-    max-height: 400px;
-    max-width: 400px;
+    max-height: 600px;
+    max-width: 600px;
     height: 100%;
     width: 100%;
 
@@ -70,10 +70,10 @@ const TimerCircle = ({
   `;
 
   const minutes = css`
-    font-size: 2rem;
+    font-size: 2.1rem;
   `;
   const seconds = css`
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   `;
 
   const path_remaining = css`
@@ -90,7 +90,7 @@ const TimerCircle = ({
     /* One second aligns with the speed of the countdown timer */
     transition: 1s linear all;
 
-    color: #fafafa;
+    color: #0369a1;
 
     /* Allows the ring to change color when the color value updates */
     stroke: currentColor;

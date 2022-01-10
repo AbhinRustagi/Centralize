@@ -3,7 +3,7 @@ import { FiExternalLink, FiGithub } from "react-icons/fi";
 
 const Footer = () => {
   return (
-    <footer className="pb-10 pt-6 border-t border-solid border-t-gray-600">
+    <footer className="pb-10 pt-6 border-t border-solid border-t-gray-300">
       <div className="container">
         <div className="flex flex-wrap justify-between gap-2 mb-5 items-center">
           <p>

@@ -6,21 +6,21 @@ const Toast = (
 ) => {
   const styles = {
     success: {
-      backgroundColor: "#ECFCCB",
+      backgroundColor: "#D3E4CD",
       color: "#121212",
       fontFamily: "inherit",
       borderRadies: "0",
       border: "1px solid #121212",
     },
     danger: {
-      backgroundColor: "#FCA5A5",
+      backgroundColor: "#FFBCBC",
       color: "#121212",
       fontFamily: "inherit",
       borderRadies: "0",
       border: "1px solid #121212",
     },
     general: {
-      backgroundColor: "#FFEDD5",
+      backgroundColor: "#f6eabe",
       color: "#121212",
       fontFamily: "inherit",
       borderRadies: "0",

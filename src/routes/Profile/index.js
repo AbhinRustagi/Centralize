@@ -10,6 +10,12 @@ const Profile = () => {
   const [data, setData] = useState();
   const [{ user }, dispatch] = useUserInfo();
 
+  useEffect(() => {
+    if (user === null) {
+      navigate("/", { replace: true });
+    }
+  }, [user]);
+
   // useEffect(() => {
   //   findUserProfile(params.username).then((profile) => {
   //     if (!profile) {
@@ -26,12 +32,12 @@ const Profile = () => {
       <Helmet>
         <title>{params.username}'s Profile – Centralize</title>
       </Helmet>
-      <div id="hero" className="bg-sky-200 py-10">
+      <div id="hero" className="py-10" style={{ background: "#F5CDAA" }}>
         <div className="container">
           <h1 className="font-bold text-3xl">{params.username}</h1>
         </div>
       </div>
-      <div className="container my-10"></div>
+      <div className="container"></div>
     </>
   );
 };
