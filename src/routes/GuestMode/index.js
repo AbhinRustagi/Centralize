@@ -16,12 +16,13 @@ const GuestMode = () => {
   const { startTimer, status, clearTimer, timeRemaining } = useTimer();
   const [timerId, setTimerId] = useState(null);
   const [duration, setDuration] = useState(0);
-  const [currentSet, setCurrentSet] = useState(0);
+  const [currentSet, setCurrentSet] = useState(null);
 
   useEffect(() => {
     if (status === "OFF") {
       setTimerId(null);
-      removePomodoro(currentSet.id);
+      removePomodoro(currentSet?.id);
+      setCurrentSet(null);
     }
   }, [status]);
 
@@ -45,11 +46,15 @@ const GuestMode = () => {
   };
 
   const removePomodoro = (id) => {
+    if (!id || id === null) {
+      return;
+    }
+
     if (sets.length === 0) {
       return;
     }
 
-    if (status === "ON") {
+    if (status === "ON" && id === currentSet.id) {
       clearTimer(timerId);
     }
 
@@ -87,12 +92,13 @@ const GuestMode = () => {
               <select
                 className="w-36 bg-zinc-50 text-neutral-900"
                 name="select-set"
+                value={input}
                 id="select-set"
                 onChange={(e) => {
                   setInput(e.target.value);
                 }}
               >
-                <option selected className="p-1 block" value="1-1">
+                <option className="p-1 block" value="1-1">
                   None Selected
                 </option>
                 <option className="p-1 block" value="25-5">
