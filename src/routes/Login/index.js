@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Helmet from "react-helmet";
 import { showToast } from "../../components";
 import useUserInfo from "../../context/user";
-import { signIn } from "../../utils";
+import { firebaseFunctions } from "../../utils";
 
 const Login = () => {
   const [input, setInput] = useState({ email: "", password: "" });
@@ -11,7 +11,7 @@ const Login = () => {
   const [{ user }, dispatch] = useUserInfo();
 
   const proceedToLogIn = async () => {
-    await signIn(input.email, input.password).then((res) => {
+    await firebaseFunctions.signIn(input.email, input.password).then((res) => {
       if (!res.success) {
         showToast("There was an error", "danger");
         return;
@@ -26,8 +26,8 @@ const Login = () => {
       <Helmet>
         <title>Login – Centralize</title>
       </Helmet>
-      <div className="container my-20 flex gap-10 h-full relative items-center justify-center">
-        <div className="p-7 bg-sky-200 border-gray-800 border-solid border max-w-md w-full">
+      <div className="container py-20 flex gap-10 h-full relative items-center justify-center">
+        <div className="p-7 text-neutral-900 bg-sky-200 border-gray-800 border-solid border max-w-md w-full">
           <h1 className="font-bold text-3xl mb-5">Welcome Back</h1>
           <label className="block mb-1" htmlFor="">
             Email Address

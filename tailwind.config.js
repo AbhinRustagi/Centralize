@@ -648,6 +648,8 @@ module.exports = {
       max: "max-content",
       fit: "fit-content",
       prose: "65ch",
+      half: "50%",
+      "3/4": "75%",
       ...breakpoints(theme("screens")),
     }),
     minHeight: {

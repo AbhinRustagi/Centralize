@@ -8,13 +8,13 @@ const Home = () => {
       <Helmet>
         <title>Centralize – Productivity Partner</title>
       </Helmet>
-      <div className="pt-12 bg-sky-200  border-b border-b-gray-800">
+      <div className="pt-12 text-neutral-900 bg-sky-200  border-b border-b-gray-800">
         <div className="container flex items-center flex-wrap lg:flex-nowrap gap-10">
           <div className="w-full min-w-300px">
             <h1 className="leading-relaxed font-medium md:text-3xl text-3xl  lg:text-5xl mb-3">
               Your Productivity Partner
             </h1>
-            <p className="my-5">
+            <p className="my-5 leading-loose">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
               nisi aliquid perspiciatis, quibusdam aspernatur praesentium. Quia
               molestiae similique recusandae quas soluta totam ullam asperiores

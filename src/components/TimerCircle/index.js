@@ -7,14 +7,14 @@ const TimerCircle = ({
   timeLeft = "Please set a time",
   totalTime,
   countdown,
+  className,
 }) => {
   // Hooks
   const FULL_DASH_ARRAY = 283;
   const circlePath = useRef(null);
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    if (timeLeft <= 0) {
+    if (timeLeft <= 0 || (countdown.mins === "00" && countdown.secs === "00")) {
       setTimeout(() => {
         circlePath.current.setAttribute("stroke-dasharray", 283);
       }, 1500);
@@ -27,7 +27,8 @@ const TimerCircle = ({
       0
     )} 283`;
     circlePath.current.setAttribute("stroke-dasharray", circleDasharray);
-  }, [timeLeft]);
+    /* eslint-disable react-hooks/exhaustive-deps */
+  }, [timeLeft, countdown]);
 
   // styles
   const base_timer = css`
@@ -46,7 +47,6 @@ const TimerCircle = ({
 
   const path_elapsed = css`
     stroke-width: 7px;
-    stroke: #a3da8d;
   `;
 
   const label = css`
@@ -90,21 +90,27 @@ const TimerCircle = ({
     /* One second aligns with the speed of the countdown timer */
     transition: 1s linear all;
 
-    color: #146356;
+    color: #fafafa;
 
     /* Allows the ring to change color when the color value updates */
     stroke: currentColor;
   `;
 
   return (
-    <div css={base_timer}>
+    <div css={base_timer} className={className}>
       <svg
         className="basetimer-svg"
         viewBox="0 0 100 100"
         xmlns="http://www.w3.org/2000/svg"
       >
         <g css={circle}>
-          <circle css={path_elapsed} cx="50" cy="50" r="45" />
+          <circle
+            css={path_elapsed}
+            className="stroke-sky-200"
+            cx="50"
+            cy="50"
+            r="45"
+          />
           <path
             ref={circlePath}
             id="base-timer-path-remaining"

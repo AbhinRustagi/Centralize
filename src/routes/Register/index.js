@@ -8,8 +8,8 @@ const Register = () => {
       <Helmet>
         <title>Register – Centralize</title>
       </Helmet>
-      <div className="container my-20 flex gap-10 h-full relative items-center justify-center">
-        <div className="p-7 bg-sky-200 border-gray-800 border-solid border max-w-md w-full">
+      <div className="container py-20 flex gap-10 h-full relative items-center justify-center">
+        <div className="p-7 text-neutral-900 bg-sky-200 border-gray-800 border-solid border max-w-md w-full">
           <h1 className="font-bold text-3xl mb-5">Welcome to Centralize!</h1>
           <label className="block mb-1" htmlFor="">
             Full Name

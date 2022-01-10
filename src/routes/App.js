@@ -9,7 +9,7 @@ function App() {
     <>
       <Router>
         <Header />
-        <main>
+        <main className="dark:bg-stone-900 dark:text-neutral-200">
           <Routes>
             {routes.map((route, _) => (
               <Route key={_} {...route} />
