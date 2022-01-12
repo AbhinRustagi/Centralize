@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./routes/App";
-import { UserProvider } from "./context/user";
-import { reducer, initialState } from "./reducer/user";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { UserProvider } from "./context/user";
+import { initialState, reducer } from "./reducer/user";
+import App from "./routes/App";
 
 ReactDOM.render(
   <UserProvider reducer={reducer} initialState={initialState}>

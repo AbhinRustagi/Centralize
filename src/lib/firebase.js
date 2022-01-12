@@ -4,6 +4,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signOut,
   updateProfile,
 } from "firebase/auth";
@@ -17,6 +18,7 @@ import {
   getDocs,
   setDoc,
 } from "firebase/firestore";
+import moment from "moment";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -60,6 +62,7 @@ const register = async ({ email, password, name, username }) => {
       name,
       email,
       username,
+      dateJoined: moment().format("DD MM YYYY, hh:mm:ss a"),
     })
       .then(() => registerUser)
       .catch((err) => ({
@@ -73,8 +76,18 @@ const register = async ({ email, password, name, username }) => {
   return registerUser;
 };
 
+const sendResetPasswordLink = async (email) => {
+  return await sendPasswordResetEmail(auth, email)
+    .then(() => ({ success: true }))
+    .catch((err) => ({
+      mode: err.code,
+      success: false,
+      message: err.message,
+    }));
+};
+
 const logOut = async () => {
-  await signOut(auth)
+  return await signOut(auth)
     .then(() => ({ success: true }))
     .catch((err) => ({ success: false, message: err.message, code: err.code }));
 };
@@ -86,6 +99,21 @@ async function findIfUserNameExists(username) {
   return getDocs(q).then((snap) => snap.empty);
 }
 
-export const findUserProfile = async (username) => {};
+export const findUserProfile = async (username) => {
+  const ref = collection(db, "users");
+  const q = query(ref, where("username", "==", username));
 
-export { logOut, findIfUserNameExists, signIn, register };
+  return getDocs(q).then((snap) => {
+    let data = [];
+    snap.forEach((doc) => data.push(doc.data()));
+    return data[0];
+  });
+};
+
+export {
+  logOut,
+  findIfUserNameExists,
+  signIn,
+  register,
+  sendResetPasswordLink,
+};

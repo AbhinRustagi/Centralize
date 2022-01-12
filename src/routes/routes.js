@@ -1,8 +1,9 @@
-import Profile from "./Profile";
-import Home from "./Home";
-import GuestMode from "./GuestMode";
-import Login from "./Login";
-import Register from "./Register";
+import { GuestMode } from "./GuestMode";
+import { Home } from "./Home";
+import { Login } from "./Login";
+import { Profile } from "./Profile";
+import { Register } from "./Register";
+import { ForgetPassword } from "./ForgetPassword";
 
 const routes = [
   { index: true, element: <Home /> },
@@ -13,6 +14,7 @@ const routes = [
   { path: "/guest-mode", element: <GuestMode /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
+  { path: "/reset-password", element: <ForgetPassword /> },
 ];
 
 export default routes;
