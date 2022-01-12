@@ -45,9 +45,14 @@ const signIn = async (email, password) => {
     .catch((err) => ({ message: err.message, code: err.code, success: false }));
 };
 
-const register = async ({ email, password, name, username }) => {
+const register = async ({ email, password, name, username, photoUrl }) => {
   let registerUser = await createUserWithEmailAndPassword(auth, email, password)
-    .then(() => updateProfile(auth.currentUser, { displayName: username }))
+    .then(() =>
+      updateProfile(auth.currentUser, {
+        displayName: username,
+        photoURL: photoUrl,
+      })
+    )
     .then(() => ({ user: auth.currentUser, success: true }))
     .catch((err) => ({
       message: err.message,
@@ -55,13 +60,12 @@ const register = async ({ email, password, name, username }) => {
       success: false,
     }));
 
-  console.log(registerUser);
-
   if (registerUser.success) {
     return await setDoc(doc(db, "users", registerUser.user.uid), {
       name,
       email,
       username,
+      photoUrl,
       dateJoined: moment().format("DD MM YYYY, hh:mm:ss a"),
     })
       .then(() => registerUser)

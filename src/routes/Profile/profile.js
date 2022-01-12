@@ -44,7 +44,7 @@ const Profile = () => {
             <img
               src={data?.photoURL ? data?.photoURL : AVATAR_PIC}
               alt={`${data?.username} avatar pic`}
-              className="rounded-full w-20 h-20"
+              className="rounded-full w-20 h-20 object-cover"
             />
             <div>
               <h1 className="font-bold text-3xl h-max">{data?.username}</h1>

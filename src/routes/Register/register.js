@@ -12,6 +12,7 @@ const Register = () => {
     email: "",
     password: "",
     username: "",
+    photoUrl: "",
   });
   const [{ user }, dispatch] = useUserInfo();
   const navigate = useNavigate();
@@ -54,6 +55,12 @@ const Register = () => {
     });
   };
 
+  const handleChange = (e) =>
+    setFormInput({
+      ...formInput,
+      [e.target.name]: e.target.value,
+    });
+
   return (
     <>
       <Helmet>
@@ -72,12 +79,8 @@ const Register = () => {
               </label>
               <input
                 type="text"
-                onChange={(e) =>
-                  setFormInput({
-                    ...formInput,
-                    [e.target.name]: e.target.value,
-                  })
-                }
+                required
+                onChange={handleChange}
                 name="name"
                 value={formInput.name}
                 placeholder="John Doe"
@@ -88,13 +91,9 @@ const Register = () => {
               </label>
               <input
                 type="text"
+                required
                 onKeyDown={validateUsername}
-                onChange={(e) =>
-                  setFormInput({
-                    ...formInput,
-                    [e.target.name]: e.target.value,
-                  })
-                }
+                onChange={handleChange}
                 name="username"
                 value={formInput.username}
                 placeholder="john.doe"
@@ -105,12 +104,8 @@ const Register = () => {
               </label>
               <input
                 type="email"
-                onChange={(e) =>
-                  setFormInput({
-                    ...formInput,
-                    [e.target.name]: e.target.value,
-                  })
-                }
+                required
+                onChange={handleChange}
                 name="email"
                 value={formInput.email}
                 placeholder="john.doe@gmail.com"
@@ -122,15 +117,23 @@ const Register = () => {
               <input
                 name="password"
                 type="password"
+                required
                 pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm"
-                onChange={(e) =>
-                  setFormInput({
-                    ...formInput,
-                    [e.target.name]: e.target.value,
-                  })
-                }
+                onChange={handleChange}
                 value={formInput.password}
                 placeholder="this_is_crazy"
+                className="w-full focus:rounded-none focus:outline-none text-base block border border-solid border-gray-800 py-2 px-3 mb-6"
+              />
+              <label className="block mb-1" htmlFor="photoUrl">
+                Display Picture URL
+              </label>
+              <input
+                name="photoUrl"
+                type="url"
+                pattern="(https?:\/\/.*\.(?:png|jpg))"
+                onChange={handleChange}
+                value={formInput.photoUrl}
+                placeholder="(PNG or JPG)"
                 className="w-full focus:rounded-none focus:outline-none text-base block border border-solid border-gray-800 py-2 px-3 mb-6"
               />
               <Button
