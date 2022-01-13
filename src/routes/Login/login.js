@@ -22,7 +22,6 @@ const Login = () => {
     e.preventDefault();
 
     await fb.signIn(input.email, input.password).then((res) => {
-      console.log(res);
       if (!res.success) {
         showToast("There was an error", "danger");
         return;

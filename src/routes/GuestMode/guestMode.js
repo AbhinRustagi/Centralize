@@ -39,7 +39,6 @@ const GuestMode = () => {
     { text: "20 Mins/10 Mins", value: "20-10" },
     { text: "25 Mins/5 Mins", value: "25-5" },
     { text: "35 Mins/5 Mins", value: "35-5" },
-    { text: "35 Mins/5 Mins", value: "35-5" },
     { text: "40 Mins/10 Mins", value: "40-10" },
     { text: "45 Mins/15 Mins", value: "45-15" },
     { text: "50 Mins/10 Mins", value: "50-10" },
@@ -104,7 +103,7 @@ const GuestMode = () => {
       sets.map(({ id, duration }, _) => (
         <li
           key={id}
-          className="px-7 py-4 rounded items-center flex justify-center text-center relative"
+          className="px-7 py-4 font-medium rounded items-center flex justify-center text-center relative"
           style={{
             background: id && id === currentSet?.id ? "#99BBAD" : "#C8E3D4",
           }}
@@ -170,19 +169,19 @@ const GuestMode = () => {
       <Helmet>
         <title>Guest Mode – Centralize</title>
       </Helmet>
-      <div className="container min-h-80vh py-16 flex flex-wrap flex-row-reverse justify-center gap-16">
-        <div className="lg:max-w-half w-full flex flex-col gap-10 justify-center items-center">
+      <div className="container min-h-80vh py-16 flex flex-wrap items-center justify-center gap-10">
+        <TimerCircle
+          className="lg:max-w-lg m-0 w-full"
+          timeLeft={timeRemaining.inNoOfSeconds}
+          countdown={{ mins: timeRemaining.mins, secs: timeRemaining.secs }}
+          totalTime={duration}
+        />
+        <div className="lg:max-w-sm w-full flex flex-col gap-10 justify-center items-center">
           <ul className="w-max max-w-full gap-1 justify-center flex flex-wrap overflow-hidden">
             {renderSetsRow}
           </ul>
           <div>{renderControls}</div>
         </div>
-        <TimerCircle
-          className="lg:max-w-half w-full"
-          timeLeft={timeRemaining.inNoOfSeconds}
-          countdown={{ mins: timeRemaining.mins, secs: timeRemaining.secs }}
-          totalTime={duration}
-        />
       </div>
     </>
   );

@@ -7,6 +7,7 @@ import {
   sendPasswordResetEmail,
   signOut,
   updateProfile,
+  sendEmailVerification,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -96,28 +97,33 @@ const logOut = async () => {
     .catch((err) => ({ success: false, message: err.message, code: err.code }));
 };
 
-async function findIfUserNameExists(username) {
-  const ref = collection(db, "users");
-  const q = query(ref, where("username", "==", username));
-
-  return getDocs(q).then((snap) => snap.empty);
-}
-
 export const findUserProfile = async (username) => {
   const ref = collection(db, "users");
   const q = query(ref, where("username", "==", username));
 
-  return getDocs(q).then((snap) => {
-    let data = [];
-    snap.forEach((doc) => data.push(doc.data()));
-    return data[0];
-  });
+  return getDocs(q)
+    .then((snap) => {
+      let data = [];
+      snap.forEach((doc) => data.push(doc.data()));
+      return data.length > 0
+        ? { success: true, data: data[0] }
+        : { success: false, message: "User not found." };
+    })
+    .catch((err) => ({ success: false, message: err.message, code: err.code }));
+};
+
+const sendAccountVerificationEMail = async () => {
+  const user = auth.currentUser;
+  return await sendEmailVerification(user)
+    .then(() => ({ success: true }))
+    .catch((err) => ({ success: true, message: err.message, code: err.code }));
 };
 
 export {
   logOut,
-  findIfUserNameExists,
   signIn,
+  auth,
   register,
   sendResetPasswordLink,
+  sendAccountVerificationEMail,
 };

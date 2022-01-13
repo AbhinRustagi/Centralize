@@ -24,12 +24,6 @@ const Register = () => {
     // eslint-disable-next-line
   }, [user]);
 
-  useEffect(() => {
-    if (!fb.findIfUserNameExists(formInput.username)) {
-      showToast("Username exists", "danger");
-    }
-  }, [formInput.username]);
-
   const validateUsername = (e) => {
     // eslint-disable-next-line
     const rx = /[A-Za-z0-9\._]+/g;
@@ -55,11 +49,12 @@ const Register = () => {
     });
   };
 
-  const handleChange = (e) =>
+  const handleChange = (e) => {
     setFormInput({
       ...formInput,
       [e.target.name]: e.target.value,
     });
+  };
 
   return (
     <>

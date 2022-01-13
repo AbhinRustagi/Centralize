@@ -17,15 +17,19 @@ const Button = ({
     (wFull ? "w-full " : "w-max ");
   const variants = {
     primary:
-      "block font-medium text-base bg-blue-800 text-white hover:bg-blue-800/30 hover:text-blue-800 rounded border-solid border border-blue-800",
+      "block font-medium text-base bg-blue-600 text-white hover:bg-blue-600/30 hover:text-blue-600 rounded border-solid border border-blue-700",
     outline:
-      "block font-bold text-sm text-blue-800 hover:bg-blue-800/5 border-solid border border-blue-800",
+      "block font-medium text-sm text-blue-600 hover:bg-blue-600/5 border-solid border border-blue-600",
     primaryRed: "bg-red-400 hover:bg-red-400/60 hover:text-black",
     primaryGreen: "bg-lime-400 hover:bg-lime-400/60",
     outlineRed:
-      "font-bold text-sm text-red-600 hover:bg-red-600/5 border-solid border border-red-600",
+      "font-medium text-sm text-red-600 hover:bg-red-600/5 border-solid border border-red-600",
     outlineGreen:
-      "font-bold text-sm text-green-800 hover:bg-green-800/5 border-solid border border-green-800",
+      "font-medium text-sm text-green-600 hover:bg-green-600/5 border-solid border border-green-600",
+    outlineWhite:
+      "block font-medium text-sm text-white hover:bg-white/5 border-solid border border-white",
+    outlineGray:
+      "block font-medium text-sm text-gray-700 hover:bg-gray-700/5 border-solid border border-gray-700",
   };
 
   if (role === "btn") {

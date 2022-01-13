@@ -1,7 +1,7 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Footer, Header } from "../components";
 import "../styles/globals.scss";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Header, Footer } from "../components";
 import routes from "./routes";
 
 function App() {

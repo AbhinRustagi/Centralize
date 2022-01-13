@@ -3,8 +3,9 @@ import {
   signIn,
   register,
   logOut,
-  findIfUserNameExists,
   sendResetPasswordLink,
+  sendAccountVerificationEMail,
+  auth,
 } from "./firebase";
 
 export const fb = {
@@ -12,6 +13,7 @@ export const fb = {
   signIn,
   register,
   logOut,
-  findIfUserNameExists,
   sendResetPasswordLink,
+  sendAccountVerificationEMail,
+  auth,
 };
