@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Helmet from "react-helmet";
-import { fb } from "../../lib";
+import { fb, vl } from "../../lib";
 import { Button, showToast } from "../../components";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +10,11 @@ const ForgetPassword = () => {
 
   const proceedToSendLink = async (e) => {
     e.preventDefault();
+
+    if (!vl.validateEmail(input).success) {
+      showToast("Invalid Email Format", "danger");
+      return;
+    }
 
     await fb.sendResetPasswordLink(input).then((res) => {
       if (res.success) {

@@ -37,8 +37,6 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 const signIn = async (email, password) => {
-  // TODO: Client Side Validation
-
   return await signInWithEmailAndPassword(auth, email, password)
     .then((user) => {
       return { user: user.user, success: true };

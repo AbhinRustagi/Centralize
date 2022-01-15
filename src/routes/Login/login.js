@@ -3,7 +3,7 @@ import Helmet from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, showToast } from "../../components";
 import useUserInfo from "../../context/user";
-import { fb } from "../../lib";
+import { fb, vl } from "../../lib";
 import { LOGIN_ROUTE_IMG } from "../../static";
 
 const Login = () => {
@@ -18,8 +18,28 @@ const Login = () => {
     // eslint-disable-next-line
   }, [user]);
 
+  const validate = ({ email, password }) => {
+    let res1 = vl.validateEmail(email);
+    let res2 = vl.validatePassword(password);
+
+    return res1.success && res2.success
+      ? { success: true }
+      : {
+          success: false,
+          message: res1.success
+            ? "Invalid Password Format"
+            : "Invalid Email Format",
+        };
+  };
+
   const proceedToLogIn = async (e) => {
     e.preventDefault();
+
+    const res = validate(input);
+    if (!res.success) {
+      showToast(res.message, "danger");
+      return;
+    }
 
     await fb.signIn(input.email, input.password).then((res) => {
       if (!res.success) {

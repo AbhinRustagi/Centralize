@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, showToast } from "../../components";
 import useUserInfo from "../../context/user";
-import { fb } from "../../lib";
+import { fb, vl } from "../../lib";
 import { REGISTER_ROUTE_IMG } from "../../static";
 
 const Register = () => {
@@ -24,28 +24,36 @@ const Register = () => {
     // eslint-disable-next-line
   }, [user]);
 
-  const validateUsername = (e) => {
-    // eslint-disable-next-line
-    const rx = /[A-Za-z0-9\._]+/g;
-    if (!rx.test(e.key)) {
-      e.preventDefault();
-    }
-  };
-
-  const proceedToRegister = (e) => {
+  const proceedToRegister = async (e) => {
     e.preventDefault();
 
-    fb.register(formInput).then((res) => {
+    const validationResult = vl.validateAll(formInput);
+
+    if (!validationResult.success) {
+      validationResult.message.forEach((text) => {
+        showToast(text, "danger");
+      });
+      return;
+    }
+
+    await vl.checkIfUsernameExists(formInput.username).then((res) => {
       if (!res.success) {
-        showToast(`There was an error: ${res.message}`, "danger");
+        showToast("Username already in use :(", "danger");
         return;
       }
 
-      showToast(
-        `Registered successfully.\nWelcome, ${res.user.displayName}`,
-        "success"
-      );
-      dispatch({ type: "SET_USER", user: { ...res.user } });
+      fb.register(formInput).then((res) => {
+        if (!res.success) {
+          showToast(`There was an error: ${res.message}`, "danger");
+          return;
+        }
+
+        showToast(
+          `Registered successfully.\nWelcome, ${res.user.displayName}`,
+          "success"
+        );
+        dispatch({ type: "SET_USER", user: { ...res.user } });
+      });
     });
   };
 
@@ -67,7 +75,7 @@ const Register = () => {
             className="p-8 text-neutral-900 bg-lime-200 rounded-3xl max-w-md w-full"
             style={{ background: "#D3E4CD" }}
           >
-            <h1 className="font-bold text-3xl mb-5">Welcome to Centralize!</h1>
+            <h1 className="font-bold text-3xl mb-5">Get Started</h1>
             <form>
               <label className="block mb-1" htmlFor="name">
                 Full Name
@@ -87,7 +95,6 @@ const Register = () => {
               <input
                 type="text"
                 required
-                onKeyDown={validateUsername}
                 onChange={handleChange}
                 name="username"
                 value={formInput.username}
