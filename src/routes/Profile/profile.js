@@ -12,6 +12,7 @@ import { Button, showToast } from "../../components";
 import useUserInfo from "../../context/user";
 import { fb } from "../../lib";
 import { AVATAR_PIC } from "../../static";
+import axios from "axios";
 
 const Profile = () => {
   const params = useParams();
@@ -25,25 +26,22 @@ const Profile = () => {
       return;
     }
 
-    if (user?.displayName !== params.username) {
+    if (user?.username !== params.username) {
       navigate("/", { replace: true });
       return;
     }
 
-    const res = async () => {
-      await fb.findUserProfile(params.username).then((temp) => {
-        if (temp.success) setData(temp.data);
-        else {
-          showToast(
-            `There was an error fetching data: ${temp.message}`,
-            "danger"
-          );
-        }
-      });
-    };
+    axios(
+      "http://localhost:8888/.netlify/functions/api/getUserProfileDetails",
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${localStorage.getItem("idToken")}` },
+      }
+    ).then((res) => {
+      if (res.data.details) setData(res.data.details);
+    });
 
-    if (user.uid) res();
-    // eslint-disable-next-line
+    //  eslint-disable-next-line
   }, [params.username, user]);
 
   const proceedToVerifyEmail = (e) => {
@@ -75,20 +73,20 @@ const Profile = () => {
       <div className="container">
         <div className="flex justify-between items-center gap-6 flex-wrap my-8 bg-white rounded-3xl p-4 shadow">
           <div className="flex lg:gap-12 gap-4 items-center flex-wrap">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-5">
               <img
-                src={data?.photoUrl ? data?.photoUrl : AVATAR_PIC}
-                alt={`${data?.username} avatar pic`}
+                src={user?.photoUrl ? user?.photoUrl : AVATAR_PIC}
+                alt={`${user?.username} avatar pic`}
                 className="rounded-full w-16 h-16 object-cover"
               />
               <div className="flex justify-center flex-col">
                 <p className="font-bold text-xl h-max">{data?.name}</p>
-                <p className="text-gray-500">{data?.username}</p>
+                <p className="text-gray-500">{user?.username}</p>
               </div>
             </div>
             <div>
               <p className="text-gray-500 text-sm font-medium">Email</p>
-              <p className="font-medium">{data?.email}</p>
+              <p className="font-medium">{user?.email}</p>
             </div>
             <div>
               <p className="text-gray-500 text-sm font-medium">Date Joined</p>
@@ -110,7 +108,7 @@ const Profile = () => {
           <Button href="." type="primary" sm>
             <FaUserAlt /> Sets
           </Button>
-          <Button href="." type="primaryGreen" sm>
+          <Button href="." type="green" sm>
             <FaChartPie /> Record
           </Button>
           <Button href="." type="primaryGray" sm>

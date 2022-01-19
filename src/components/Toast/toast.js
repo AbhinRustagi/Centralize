@@ -6,25 +6,16 @@ const Toast = (
 ) => {
   const styles = {
     success: {
-      backgroundColor: "#D3E4CD",
-      color: "#121212",
-      fontFamily: "inherit",
-      borderRadies: "0",
-      border: "1px solid #121212",
+      background: "linear-gradient(to bottom,#4ade80,#22c55e)",
+      color: "#fff",
     },
     danger: {
-      backgroundColor: "#FFBCBC",
-      color: "#121212",
-      fontFamily: "inherit",
-      borderRadies: "0",
-      border: "1px solid #121212",
+      background: "linear-gradient(to bottom,#f87171,#ef4444)",
+      color: "#fff",
     },
     general: {
-      backgroundColor: "#f6eabe",
-      color: "#121212",
-      fontFamily: "inherit",
-      borderRadies: "0",
-      border: "1px solid #121212",
+      background: "linear-gradient(to bottom,#60a5fa,#3b82f6)",
+      color: "#fff",
     },
   };
 

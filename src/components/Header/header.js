@@ -28,7 +28,7 @@ const Header = () => {
   };
 
   return (
-    <header className="py-3">
+    <header className="py-3 bg-white">
       <div className="container flex-wrap flex justify-between items-center">
         <div>
           <a className="block flex items-center gap-3" href="/">
@@ -66,7 +66,7 @@ const Header = () => {
             ) : null}
             {user !== null ? (
               <li>
-                <Button role="btn" type="primaryRed" onClick={proceedToLogOut}>
+                <Button role="btn" type="red" onClick={proceedToLogOut}>
                   Logout
                 </Button>
               </li>

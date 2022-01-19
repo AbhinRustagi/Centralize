@@ -47,6 +47,9 @@ const Login = () => {
         showToast("There was an error", "danger");
         return;
       }
+
+      localStorage.setItem("idToken", res.user.accessToken);
+
       dispatch({ type: "SET_USER", user: res.user });
     });
   };

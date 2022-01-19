@@ -2,7 +2,7 @@ const express = require("express");
 const serverless = require("serverless-http");
 const app = express();
 const bodyParser = require("body-parser");
-const { auth } = require("./firebase/admin");
+const { auth, db } = require("./firebase/admin");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -21,8 +21,13 @@ const verifyToken = async function (req, res, next) {
   return await auth
     .verifyIdToken(token)
     .then((decodedToken) => {
-      const uid = decodedToken.uid;
-      req.uid = uid;
+      req.user = {
+        uid: decodedToken.uid,
+        username: decodedToken.name,
+        email: decodedToken.email,
+        photoUrl: decodedToken.picture,
+        emailVerified: decodedToken.email_verified,
+      };
       return next();
     })
     .catch((err) => {
@@ -32,8 +37,15 @@ const verifyToken = async function (req, res, next) {
 
 const router = express.Router();
 
-router.get("/", verifyToken, (req, res) => {
-  res.status(200).json({ path: "Home", name: "Abhin" });
+router.get("/getUserFromToken", verifyToken, (req, res) => {
+  if (req.user) return res.status(200).json({ user: req.user });
+});
+
+router.get("/getUserProfileDetails", verifyToken, async (req, res) => {
+  const doc = await db.collection("users").doc(req.user.uid).get();
+  if (doc.exists) {
+    return res.status(200).json({ details: doc.data() });
+  }
 });
 
 router.post("/", (req, res) => {

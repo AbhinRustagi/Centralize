@@ -90,6 +90,7 @@ const sendResetPasswordLink = async (email) => {
 };
 
 const logOut = async () => {
+  localStorage.removeItem("idToken");
   return await signOut(auth)
     .then(() => ({ success: true }))
     .catch((err) => ({ success: false, message: err.message, code: err.code }));

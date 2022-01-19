@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function useTimer() {
   const [status, setStatus] = useState("INACTIVE");
