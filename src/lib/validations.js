@@ -19,7 +19,7 @@ export const validateEmail = (email) => {
 };
 
 export const validateUsername = (username) => {
-  const rx = /[A-Za-z0-9\._]+/g;
+  const rx = /[A-Za-z0-9\._]{4,}/g;
   if (username === "" || !rx.test(username)) {
     return { success: false };
   }

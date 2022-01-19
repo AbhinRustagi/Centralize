@@ -66,14 +66,14 @@ const Header = () => {
             ) : null}
             {user !== null ? (
               <li>
-                <Button role="btn" type="outlineRed" onClick={proceedToLogOut}>
+                <Button role="btn" type="primaryRed" onClick={proceedToLogOut}>
                   Logout
                 </Button>
               </li>
             ) : (
               <li>
                 <Button
-                  type="outline"
+                  type="primary"
                   wFull
                   href="/login"
                   onClick={toggleHeader}

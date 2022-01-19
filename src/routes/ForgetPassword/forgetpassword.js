@@ -33,10 +33,7 @@ const ForgetPassword = () => {
         <title>Reset Password – Centralize</title>
       </Helmet>
       <div className="container py-20 flex gap-10 flex-wrap h-full relative items-center justify-center">
-        <div
-          className="p-8 rounded-3xl text-neutral-900 bg-sky-200 max-w-md w-full"
-          style={{ background: "#D3DEDC" }}
-        >
+        <div className="p-8 rounded-3xl bg-white shadow-md max-w-md w-full">
           <h1 className="font-bold text-3xl mb-5">Reset Password</h1>
           <form>
             <label className="block mb-1" htmlFor="email">

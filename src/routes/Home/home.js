@@ -21,17 +21,14 @@ const Home = () => {
       <Helmet>
         <title>Centralize – Productivity Partner</title>
       </Helmet>
-      <div
-        className="pt-12 text-neutral-900 bg-sky-200 border-b border-b-gray-800"
-        style={{ background: "#B5EAEA" }}
-      >
+      <div className="pt-12">
         <div className="container flex items-center flex-wrap lg:flex-nowrap gap-10">
           <div className="w-full min-w-300px">
             <h1 className="font-bold text-4xl lg:text-5xl mb-3">
               Feel free to be productive{" "}
-              <span className="text-blue-700">anywhere</span>.
+              <span className="text-blue-500">anywhere</span>.
             </h1>
-            <p className="my-5 leading-loose">
+            <p className="my-5 text-gray-500">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
               nisi aliquid perspiciatis, quibusdam aspernatur praesentium. Quia
               molestiae similique recusandae quas soluta totam ullam asperiores

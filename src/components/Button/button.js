@@ -12,24 +12,25 @@ const Button = ({
   wFull,
 }) => {
   const base =
-    "flex items-center justify-center gap-3 rounded " +
-    (!sm ? "py-3 px-7 " : "py-2 px-3 ") +
+    "flex items-center justify-center gap-3 text-sm font-medium rounded-md text-white block " +
+    (!sm ? "py-3 px-7 " : "py-2 px-3 text-xs ") +
     (wFull ? "w-full " : "w-max ");
   const variants = {
     primary:
-      "block font-medium text-base bg-blue-600 text-white hover:bg-blue-600/30 hover:text-blue-600 rounded border-solid border border-blue-700",
+      "bg-gradient-to-b from-blue-400 to-blue-500 hover:from-blue-400/60 hover:to-blue-500/60",
     outline:
-      "block font-medium text-sm text-blue-600 hover:bg-blue-600/5 border-solid border border-blue-600",
-    primaryRed: "bg-red-400 hover:bg-red-400/60 hover:text-black",
-    primaryGreen: "bg-lime-400 hover:bg-lime-400/60",
+      "text-blue-600 hover:bg-blue-600/5 border-solid border border-blue-600",
+    primaryRed:
+      "bg-gradient-to-b from-red-400 to-red-500 hover:from-red-400/60 hover:to-red-500/60",
+    primaryGreen:
+      "bg-gradient-to-b from-green-400 to-green-500 hover:from-green-400/60 hover:to-green-500/60",
     outlineRed:
-      "font-medium text-sm text-red-600 hover:bg-red-600/5 border-solid border border-red-600",
+      "text-red-600 hover:bg-red-600/5 border-solid border border-red-600",
     outlineGreen:
-      "font-medium text-sm text-green-600 hover:bg-green-600/5 border-solid border border-green-600",
-    outlineWhite:
-      "block font-medium text-sm text-white hover:bg-white/5 border-solid border border-white",
+      "text-green-600 hover:bg-green-600/5 border-solid border border-green-600",
+    outlineWhite: "text-sm hover:bg-white/5 border-solid border border-white",
     outlineGray:
-      "block font-medium text-sm text-gray-700 hover:bg-gray-700/5 border-solid border border-gray-700",
+      "text-gray-700 hover:bg-gray-700/5 border-solid border border-gray-700",
   };
 
   if (role === "btn") {

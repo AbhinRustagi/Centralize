@@ -72,48 +72,48 @@ const Profile = () => {
           </div>
         </div>
       )}
-      <div
-        id="hero"
-        className="py-10 text-white"
-        style={{ background: "#435560" }}
-      >
-        <div className="container flex justify-between items-center gap-6 flex-wrap">
-          <div className="flex gap-3">
-            <img
-              src={data?.photoUrl ? data?.photoUrl : AVATAR_PIC}
-              alt={`${data?.username} avatar pic`}
-              className="rounded-full w-20 h-20 object-cover"
-            />
+      <div className="container">
+        <div className="flex justify-between items-center gap-6 flex-wrap my-8 bg-white rounded-3xl p-4 shadow">
+          <div className="flex lg:gap-12 gap-4 items-center flex-wrap">
+            <div className="flex items-center gap-2">
+              <img
+                src={data?.photoUrl ? data?.photoUrl : AVATAR_PIC}
+                alt={`${data?.username} avatar pic`}
+                className="rounded-full w-16 h-16 object-cover"
+              />
+              <div className="flex justify-center flex-col">
+                <p className="font-bold text-xl h-max">{data?.name}</p>
+                <p className="text-gray-500">{data?.username}</p>
+              </div>
+            </div>
             <div>
-              <h1 className="font-bold text-3xl h-max mb-2">
-                Hi, {data?.username}
-              </h1>
-              <p className="h-max flex items-center gap-2 flex-wrap">
-                <span className="inline-block">{data?.name}</span>•
-                <span className="inline-block">{data?.email}</span>•
-                <span className="inline-block">
-                  Date Joined:{" "}
-                  {data?.dateJoined
-                    ? data?.dateJoined.split(",")[0].replace(" ", "/")
-                    : "Unavailable"}
-                </span>
+              <p className="text-gray-500 text-sm font-medium">Email</p>
+              <p className="font-medium">{data?.email}</p>
+            </div>
+            <div>
+              <p className="text-gray-500 text-sm font-medium">Date Joined</p>
+              <p className="font-medium">
+                {data?.dateJoined
+                  ? data?.dateJoined.split(",")[0].replace(" ", "/")
+                  : "Unavailable"}
               </p>
             </div>
           </div>
-          <Button role="btn" sm type="outlineWhite" onClick={() => {}}>
+          <Button role="btn" sm type="primary" onClick={() => {}}>
+            <FaEdit />
             Edit Profile
           </Button>
         </div>
       </div>
       <div className="container my-12">
         <div className="mb-10 flex items-center gap-4 flex-wrap">
-          <Button href="." type="outline" sm>
+          <Button href="." type="primary" sm>
             <FaUserAlt /> Sets
           </Button>
-          <Button href="." type="outlineGreen" sm>
+          <Button href="." type="primaryGreen" sm>
             <FaChartPie /> Record
           </Button>
-          <Button href="." type="outlineGray" sm>
+          <Button href="." type="primaryGray" sm>
             <FaUserCog /> Profile Settings
           </Button>
         </div>

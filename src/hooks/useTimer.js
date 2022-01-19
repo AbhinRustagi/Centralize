@@ -1,29 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function useTimer() {
+export default function useTimer() {
+  const [status, setStatus] = useState("INACTIVE");
   const [timeRemaining, setTimeRemaining] = useState({
-    inNoOfSeconds: 0,
+    total: 0,
     mins: "00",
     secs: "00",
   });
-  const [status, setStatus] = useState("OFF");
 
   const convertToString = (value) => {
     return value < 10 ? "0" + String(value) : String(value);
   };
 
-  async function startTimer(duration, exitFunc) {
-    if (duration === null) {
-      throw new Error("Please set a duration for the timer.");
+  const startTimer = (duration, exitFunc = null) => {
+    if (status === "ON") {
+      alert("Another timer already running.");
+      return;
     }
 
-    let timer = duration;
-    setStatus("ON");
+    if (duration <= 0) {
+      alert("Invalid Duration");
+      return;
+    }
 
-    let id = setInterval(() => {
+    // duration in seconds
+    let timer = duration;
+
+    const id = setInterval(() => {
       setTimeRemaining({
-        ...timeRemaining,
-        inNoOfSeconds: timer,
+        total: timer,
         mins: convertToString(parseInt(timer / 60, 10)),
         secs: convertToString(parseInt(timer % 60, 10)),
       });
@@ -33,25 +38,25 @@ function useTimer() {
       }
     }, 1000);
 
-    return { id, message: "Timer Started" };
-  }
+    setStatus("ON");
+    return { id };
+  };
 
-  async function clearTimer(id, exitFunc = null) {
+  const clearTimer = (id, exitFunc = null) => {
     if (id === null) {
-      throw new Error("Provide a timer id.");
+      alert("Invalid id");
+      return;
     }
 
     clearInterval(id);
     setStatus("OFF");
-    setTimeRemaining({ mins: "00", secs: "00", inNoOfSeconds: 0 });
+    setTimeRemaining({ total: 0, mins: "00", secs: "00" });
+
     if (exitFunc !== null) {
       exitFunc();
     }
+    return;
+  };
 
-    return { message: "Timer Cleared" };
-  }
-
-  return { startTimer, clearTimer, timeRemaining, status };
+  return { startTimer, clearTimer, timeRemaining, status, setStatus };
 }
-
-export default useTimer;

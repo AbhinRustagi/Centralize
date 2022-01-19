@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { css, jsx } from "@emotion/react";
 
 const TimerCircle = ({
@@ -12,12 +12,14 @@ const TimerCircle = ({
   // Hooks
   const FULL_DASH_ARRAY = 283;
   const circlePath = useRef(null);
+  const [color, setColor] = useState("text-blue-500");
 
   useEffect(() => {
     if (timeLeft <= 0 || (countdown.mins === "00" && countdown.secs === "00")) {
       setTimeout(() => {
         circlePath.current.setAttribute("stroke-dasharray", 283);
       }, 1500);
+      setColor("text-blue-500");
       return;
     }
 
@@ -27,6 +29,13 @@ const TimerCircle = ({
       0
     )} 283`;
     circlePath.current.setAttribute("stroke-dasharray", circleDasharray);
+
+    if (timeLeft <= 0.1 * totalTime) {
+      setColor("text-red-500");
+    } else if (timeLeft > 0.1 * totalTime && timeLeft <= 0.3 * totalTime) {
+      setColor("text-green-500");
+    }
+
     /* eslint-disable react-hooks/exhaustive-deps */
   }, [timeLeft, countdown]);
 
@@ -90,8 +99,6 @@ const TimerCircle = ({
     /* One second aligns with the speed of the countdown timer */
     transition: 1s linear all;
 
-    color: #0369a1;
-
     /* Allows the ring to change color when the color value updates */
     stroke: currentColor;
   `;
@@ -106,7 +113,7 @@ const TimerCircle = ({
         <g css={circle}>
           <circle
             css={path_elapsed}
-            className="stroke-sky-200"
+            className="stroke-blue-200"
             cx="50"
             cy="50"
             r="45"
@@ -116,6 +123,7 @@ const TimerCircle = ({
             id="base-timer-path-remaining"
             strokeDasharray="283"
             css={path_remaining}
+            className={color}
             d="
           M 50, 50
           m -45, 0

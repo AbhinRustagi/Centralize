@@ -11,7 +11,7 @@ const Accordian = ({
   return (
     <>
       <span
-        className="w-full mb-5 gap-3 underline font-medium flex items-center justify-center cursor-pointer"
+        className="w-full gap-3 font-medium flex items-center justify-center cursor-pointer"
         onClick={() => setState(!state)}
       >
         {prompt}
@@ -19,7 +19,7 @@ const Accordian = ({
       </span>
       <div
         className={`w-max overflow-hidden mx-auto ${
-          state ? "max-h-screen" : "max-h-0"
+          state ? "max-h-screen mt-3" : "max-h-0"
         }`}
       >
         {children}

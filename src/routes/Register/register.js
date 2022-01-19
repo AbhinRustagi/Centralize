@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import { FaInfoCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, showToast } from "../../components";
 import useUserInfo from "../../context/user";
@@ -71,10 +72,7 @@ const Register = () => {
       </Helmet>
       <div className="container flex-wrap py-20 flex gap-10 h-full relative items-center justify-center">
         <div className="w-full lg:w-1/2 flex justify-center">
-          <div
-            className="p-8 text-neutral-900 bg-lime-200 rounded-3xl max-w-md w-full"
-            style={{ background: "#D3E4CD" }}
-          >
+          <div className="p-8 rounded-3xl max-w-md w-full bg-white shadow-md">
             <h1 className="font-bold text-3xl mb-5">Get Started</h1>
             <form>
               <label className="block mb-1" htmlFor="name">
@@ -92,15 +90,23 @@ const Register = () => {
               <label className="block mb-1" htmlFor="username">
                 Username
               </label>
-              <input
-                type="text"
-                required
-                onChange={handleChange}
-                name="username"
-                value={formInput.username}
-                placeholder="john.doe"
-                className="w-full text-base focus:rounded-none focus:outline-none block border border-solid border-gray-800 py-2 px-3 mb-5"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  required
+                  onChange={handleChange}
+                  name="username"
+                  value={formInput.username}
+                  placeholder="john.doe"
+                  className="w-full text-base focus:rounded-none focus:outline-none block border border-solid border-gray-800 py-2 px-3 mb-5"
+                />
+                <div
+                  className="absolute top-3 right-3"
+                  data-tooltip="Must only contain alphanumeric characters, underscores (_) or stops(.)"
+                >
+                  <FaInfoCircle />
+                </div>
+              </div>
               <label className="block mb-1" htmlFor="email">
                 Email Address
               </label>
@@ -116,16 +122,24 @@ const Register = () => {
               <label className="block mb-1" htmlFor="password">
                 Password
               </label>
-              <input
-                name="password"
-                type="password"
-                required
-                pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm"
-                onChange={handleChange}
-                value={formInput.password}
-                placeholder="this_is_crazy"
-                className="w-full focus:rounded-none focus:outline-none text-base block border border-solid border-gray-800 py-2 px-3 mb-6"
-              />
+              <div className="relative">
+                <input
+                  name="password"
+                  type="password"
+                  required
+                  pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm"
+                  onChange={handleChange}
+                  value={formInput.password}
+                  placeholder="this_is_crazy"
+                  className="w-full focus:rounded-none focus:outline-none text-base block border border-solid border-gray-800 py-2 px-3 mb-6"
+                />
+                <div
+                  className="absolute top-3 right-3"
+                  data-tooltip="Must contain one uppercase letter, one lowercase letter, one digit and one special character. (Minimum length: 8 characters)"
+                >
+                  <FaInfoCircle />
+                </div>
+              </div>
               <label className="block mb-1" htmlFor="photoUrl">
                 Display Picture URL
               </label>
