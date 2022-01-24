@@ -4,11 +4,11 @@ import { FaPlay, FaPlus, FaStop } from "react-icons/fa";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { Accordian, Button, showToast, TimerCircle } from "../../components";
-import useUserInfo from "../../context/user";
 import { useAudio, useTimer } from "../../hooks";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import update from "immutability-helper";
+import { getUsernameFromToken, readTokens } from "../../lib/tokenFunctions";
 
 const GuestMode = () => {
   const [sets, setSets] = useState([]);
@@ -18,7 +18,7 @@ const GuestMode = () => {
   const [currentSet, setCurrentSet] = useState(null);
   const [playing, toggle] = useAudio();
   const navigate = useNavigate();
-  const [{ user }] = useUserInfo();
+
   const { startTimer, status, clearTimer, timeRemaining, setStatus } =
     useTimer();
 
@@ -28,10 +28,10 @@ const GuestMode = () => {
 
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    if (user !== null) {
-      navigate(`/cp/${user?.displayName}`, { replace: true });
+    if (readTokens().ok) {
+      navigate(`/cp/${getUsernameFromToken()}`, { replace: true });
     }
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     if (sets.length > 1 && status === "OFF") {
@@ -54,7 +54,7 @@ const GuestMode = () => {
   }, [status]);
 
   const definedSets = [
-    { text: "None Selected", value: "1-1", selected: true },
+    { text: "None Selected", value: "1-1" },
     { text: "15 Mins/5 Mins", value: "15-5" },
     { text: "20 Mins/10 Mins", value: "20-10" },
     { text: "25 Mins/5 Mins", value: "25-5" },
@@ -111,7 +111,9 @@ const GuestMode = () => {
       return;
     }
 
-    let { id } = startTimer(sets[0].duration * 60, toggleAudio);
+    let res = sets[0].duration * 60;
+
+    let { id } = startTimer(res, toggleAudio);
     setId(id);
     setCurrentSet(sets[0]);
   };
@@ -127,11 +129,14 @@ const GuestMode = () => {
           handlerId: monitor.getHandlerId(),
         };
       },
+      canDrop() {
+        if (id === currentSet.id) return false;
+        return true;
+      },
       hover(item, monitor) {
         if (!ref.current) {
           return;
         }
-        if (currentSet.id === id) return;
         const dragIndex = item.index;
         const hoverIndex = index;
         if (dragIndex === hoverIndex) {
@@ -182,7 +187,7 @@ const GuestMode = () => {
         } ${id && id === currentSet?.id ? "bg-neutral-100" : "bg-white"}`}
         data-handler-id={handlerId}
       >
-        {text} minutes
+        {text} min
         <div
           className="absolute text-black cursor-pointer top-1 right-1"
           onClick={() => removePomodoro(id)}
@@ -202,17 +207,13 @@ const GuestMode = () => {
             name="select-set"
             value={input}
             id="select-set"
+            defaultValue="1-1"
             onChange={(e) => {
               setInput(e.target.value);
             }}
           >
             {definedSets.map((set) => (
-              <option
-                className="p-1 block"
-                value={set.value}
-                key={set.value}
-                selected={set?.selected}
-              >
+              <option className="p-1 block" value={set.value} key={set.value}>
                 {set.text}
               </option>
             ))}
@@ -221,7 +222,7 @@ const GuestMode = () => {
             <FaPlus />
           </Button>
         </form>
-        <div className="flex justify-center gap-1 mt-3">
+        <div className="flex flex-wrap justify-center gap-1 mt-3">
           <Button onClick={startTimerMiddleware} role="btn" type="green">
             <FaPlay />
             Start

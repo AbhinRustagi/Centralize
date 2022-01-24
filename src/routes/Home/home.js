@@ -3,38 +3,20 @@ import Helmet from "react-helmet";
 import { FaChartBar, FaUserFriends } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components";
-import useUserInfo from "../../context/user";
 import { MdMoneyOff } from "react-icons/md";
 import { LANDING_IMG } from "../../static";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { getUsernameFromToken, readTokens } from "../../lib/tokenFunctions";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [{ user }, dispatch] = useUserInfo();
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (user !== null) {
-      navigate(`/cp/${user?.username}`, { replace: true });
+    if (readTokens().ok) {
+      navigate(`/cp/${getUsernameFromToken()}`, { replace: true });
     }
-    // eslint-disable-next-line
-  }, [user]);
-
-  useEffect(() => {
-    const token = localStorage.getItem("idToken");
-    if (!token) return;
-
-    axios("http://localhost:8888/.netlify/functions/api/getUserFromToken", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    }).then((res) => {
-      if (res.data.user) {
-        dispatch({ type: "SET_USER", user: res.data.user });
-      }
-    });
-    /* eslint-disable react-hooks/exhaustive-deps */
   }, []);
 
   return (

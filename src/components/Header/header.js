@@ -1,14 +1,18 @@
-import React, { useState } from "react";
-import useUserInfo from "../../context/user";
+import React, { useEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
-import { fb } from "../../lib";
-import { Button, showToast } from "..";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Button } from "..";
+import { readTokens, removeTokens } from "../../lib/tokenFunctions";
 
 const Header = () => {
-  const [{ user }, dispatch] = useUserInfo();
   const [state, setState] = useState(false);
+  const [auth, setAuth] = useState(readTokens().ok);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    setAuth(readTokens().ok);
+  }, [location]);
 
   const toggleHeader = () => {
     setState(!state);
@@ -16,15 +20,9 @@ const Header = () => {
 
   const proceedToLogOut = (e) => {
     e.preventDefault();
-    fb.logOut().then((res) => {
-      if (res.success) {
-        showToast("Logged out", "success");
-        dispatch({ type: "SET_USER", user: null });
-        navigate("/", { replace: true });
-      } else {
-        showToast("There was an error.", "danger");
-      }
-    });
+    removeTokens();
+    navigate("/");
+    setAuth(null);
   };
 
   return (
@@ -42,7 +40,7 @@ const Header = () => {
           }`}
         >
           <ul className="flex flex-wrap gap-3 md:pt-0 pt-2 md:w-auto w-full md:items-center items-start md:flex-row flex-col">
-            {user === null ? (
+            {!auth ? (
               <li>
                 <Link
                   className="px-3 py-2 font-medium inline-block hover:underline"
@@ -53,7 +51,7 @@ const Header = () => {
                 </Link>
               </li>
             ) : null}
-            {user === null ? (
+            {!auth ? (
               <li>
                 <Link
                   className="px-3 py-2 font-medium inline-block hover:underline"
@@ -64,7 +62,7 @@ const Header = () => {
                 </Link>
               </li>
             ) : null}
-            {user !== null ? (
+            {auth ? (
               <li>
                 <Button role="btn" type="red" onClick={proceedToLogOut}>
                   Logout

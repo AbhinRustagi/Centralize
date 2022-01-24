@@ -1,5 +1,4 @@
 /* eslint-disable no-useless-escape */
-import { fb } from ".";
 
 export const validateName = (name) => {
   const rx = /^[A-Za-z]([-']?[A-Za-z]+)*( [A-Za-z]([-']?[A-Za-z]+)*)+$/;
@@ -34,15 +33,6 @@ export const validatePassword = (password) => {
     return { success: false };
   }
   return { success: true };
-};
-
-export const checkIfUsernameExists = async (username) => {
-  return await fb.findUserProfile(username).then((res) => {
-    if (res.data?.username === username && res.success) {
-      return { success: false };
-    }
-    return { success: true };
-  });
 };
 
 const validateAll = ({ name, email, password, username }) => {

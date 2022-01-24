@@ -3,34 +3,27 @@ import Helmet from "react-helmet";
 import { FaInfoCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, showToast } from "../../components";
-import useUserInfo from "../../context/user";
-import { fb, vl } from "../../lib";
+import { vl } from "../../lib";
+import { logIn } from "../../lib/axios";
+import { getUsernameFromToken, readTokens } from "../../lib/tokenFunctions";
 import { LOGIN_ROUTE_IMG } from "../../static";
 
 const Login = () => {
   const [input, setInput] = useState({ email: "", password: "" });
   const navigate = useNavigate();
-  const [{ user }, dispatch] = useUserInfo();
 
   useEffect(() => {
-    if (user !== null) {
-      navigate(`/cp/${user.displayName}`, { replace: true });
+    if (readTokens().ok) {
+      navigate(`/cp/${getUsernameFromToken()}`, { replace: true });
     }
-    // eslint-disable-next-line
-  }, [user]);
+  }, []);
 
   const validate = ({ email, password }) => {
     let res1 = vl.validateEmail(email);
-    let res2 = vl.validatePassword(password);
 
-    return res1.success && res2.success
+    return res1.success
       ? { success: true }
-      : {
-          success: false,
-          message: res1.success
-            ? "Invalid Password Format"
-            : "Invalid Email Format",
-        };
+      : { success: false, message: "Invalid Email Format" };
   };
 
   const proceedToLogIn = async (e) => {
@@ -42,15 +35,13 @@ const Login = () => {
       return;
     }
 
-    await fb.signIn(input.email, input.password).then((res) => {
-      if (!res.success) {
+    await logIn(input.email, input.password).then((res) => {
+      if (!res.ok) {
         showToast("There was an error", "danger");
         return;
       }
 
-      localStorage.setItem("idToken", res.user.accessToken);
-
-      dispatch({ type: "SET_USER", user: res.user });
+      navigate(`/cp/${getUsernameFromToken()}`, { replace: true });
     });
   };
 

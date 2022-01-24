@@ -3,8 +3,9 @@ import { Helmet } from "react-helmet";
 import { FaInfoCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, showToast } from "../../components";
-import useUserInfo from "../../context/user";
-import { fb, vl } from "../../lib";
+import { vl } from "../../lib";
+import { getUsernameFromToken, readTokens } from "../../lib/tokenFunctions";
+import { register } from "../../lib/axios";
 import { REGISTER_ROUTE_IMG } from "../../static";
 
 const Register = () => {
@@ -13,17 +14,16 @@ const Register = () => {
     email: "",
     password: "",
     username: "",
-    photoUrl: "",
+    displayUrl: "",
   });
-  const [{ user }, dispatch] = useUserInfo();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user !== null) {
-      navigate(`/cp/${user?.displayName}`, { replace: true });
+    if (readTokens().ok) {
+      navigate(`/cp/${getUsernameFromToken()}`, { replace: true });
     }
     // eslint-disable-next-line
-  }, [user]);
+  }, []);
 
   const proceedToRegister = async (e) => {
     e.preventDefault();
@@ -37,24 +37,14 @@ const Register = () => {
       return;
     }
 
-    await vl.checkIfUsernameExists(formInput.username).then((res) => {
-      if (!res.success) {
-        showToast("Username already in use :(", "danger");
+    await register(formInput).then((res) => {
+      console.log(res);
+      if (!res.ok) {
+        showToast(res.message, "danger");
         return;
       }
 
-      fb.register(formInput).then((res) => {
-        if (!res.success) {
-          showToast(`There was an error: ${res.message}`, "danger");
-          return;
-        }
-
-        showToast(
-          `Registered successfully.\nWelcome, ${res.user.displayName}`,
-          "success"
-        );
-        dispatch({ type: "SET_USER", user: { ...res.user } });
-      });
+      navigate(`/cp/${getUsernameFromToken()}`);
     });
   };
 
@@ -144,11 +134,11 @@ const Register = () => {
                 Display Picture URL
               </label>
               <input
-                name="photoUrl"
+                name="displayUrl"
                 type="url"
                 pattern="(https?:\/\/.*\.(?:png|jpg))"
                 onChange={handleChange}
-                value={formInput.photoUrl}
+                value={formInput.displayUrl}
                 placeholder="(PNG or JPG)"
                 className="w-full focus:rounded-none focus:outline-none text-base block border border-solid border-gray-800 py-2 px-3 mb-6"
               />
