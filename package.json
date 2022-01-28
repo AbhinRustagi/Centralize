@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && cd functions/ && npm install",
     "test": "jest",
     "dev": "netlify dev",
     "deploy:dev": "npm run build && netlify deploy",
