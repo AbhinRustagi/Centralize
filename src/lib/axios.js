@@ -1,9 +1,7 @@
 import axios from "axios";
 import { setTokens } from "./tokenFunctions";
 
-const ENDPOINT =
-  process.env.REACT_APP_DEV_ENDPOINT ||
-  "https://centralize.abhinrustagi.xyz/.netlify/functions/api";
+const ENDPOINT = "https://centralize.abhinrustagi.xyz/.netlify/functions/api";
 
 export const getUserDetails = async ({ token, refreshToken }) => {
   return await axios(ENDPOINT + "/getUserProfileDetails", {

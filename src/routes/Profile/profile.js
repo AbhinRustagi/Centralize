@@ -7,30 +7,26 @@ import {
   FaUserAlt,
   FaUserCog,
 } from "react-icons/fa";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { Button, showToast } from "../../components";
+import { Navigate, useParams } from "react-router-dom";
+import { Button } from "../../components";
 import { AVATAR_PIC } from "../../static";
 import { getUserDetails } from "../../lib/axios";
 import { readTokens } from "../../lib/tokenFunctions";
 
 const Profile = () => {
   const params = useParams();
-  const navigate = useNavigate();
   const [data, setData] = useState();
 
   useEffect(() => {
-    if (readTokens.ok) {
-      navigate("/");
-    }
-  });
-
-  useEffect(() => {
-    getUserDetails(readTokens()).then((res) => {
+    getUserDetails(readTokens() || params.username).then((res) => {
       setData(res);
     });
-
     //  eslint-disable-next-line
   }, []);
+
+  if (!readTokens().ok) {
+    return <Navigate to="/" />;
+  }
 
   // const proceedToVerifyEmail = (e) => {
   //   e.preventDefault();

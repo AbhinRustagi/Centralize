@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import Helmet from "react-helmet";
 import { FaChartBar, FaUserFriends } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Button } from "../../components";
 import { MdMoneyOff } from "react-icons/md";
 import { LANDING_IMG } from "../../static";
@@ -10,14 +9,11 @@ import { useTranslation } from "react-i18next";
 import { getUsernameFromToken, readTokens } from "../../lib/tokenFunctions";
 
 const Home = () => {
-  const navigate = useNavigate();
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (readTokens().ok) {
-      navigate(`/cp/${getUsernameFromToken()}`, { replace: true });
-    }
-  }, []);
+  if (readTokens().ok) {
+    return <Navigate to={`/cp/${getUsernameFromToken()}`} />;
+  }
 
   return (
     <>

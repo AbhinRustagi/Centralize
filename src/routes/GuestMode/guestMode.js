@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import Helmet from "react-helmet";
 import { FaPlay, FaPlus, FaStop } from "react-icons/fa";
 import { IoCloseCircleSharp } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Accordian, Button, showToast, TimerCircle } from "../../components";
 import { useAudio, useTimer } from "../../hooks";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
@@ -12,12 +12,11 @@ import { getUsernameFromToken, readTokens } from "../../lib/tokenFunctions";
 
 const GuestMode = () => {
   const [sets, setSets] = useState([]);
-  const [input, setInput] = useState();
+  const [input, setInput] = useState("1-1");
   const [automaticPlay, setAutomaticPlay] = useState(true);
   const [timerId, setId] = useState(null);
   const [currentSet, setCurrentSet] = useState(null);
   const [playing, toggle] = useAudio();
-  const navigate = useNavigate();
 
   const { startTimer, status, clearTimer, timeRemaining, setStatus } =
     useTimer();
@@ -25,13 +24,6 @@ const GuestMode = () => {
   const toggleAudio = () => {
     if (!playing) toggle();
   };
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    if (readTokens().ok) {
-      navigate(`/cp/${getUsernameFromToken()}`, { replace: true });
-    }
-  }, []);
 
   useEffect(() => {
     if (sets.length > 1 && status === "OFF") {
@@ -51,7 +43,38 @@ const GuestMode = () => {
       setId(null);
       setCurrentSet(null);
     }
+    /* eslint-disable react-hooks/exhaustive-deps */
   }, [status]);
+
+  const moveSets = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragSet = sets[dragIndex];
+      setSets(
+        update(sets, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragSet],
+          ],
+        })
+      );
+    },
+    [sets]
+  );
+  const renderSet = (set, index) => {
+    return (
+      <Set
+        key={set.id}
+        index={index}
+        id={set.id}
+        text={set.duration}
+        moveSet={moveSets}
+      />
+    );
+  };
+
+  if (readTokens().ok) {
+    return <Navigate to={`/cp/${getUsernameFromToken()}`} />;
+  }
 
   const definedSets = [
     { text: "None Selected", value: "1-1" },
@@ -255,31 +278,6 @@ const GuestMode = () => {
       </Accordian>
     </div>
   );
-  const moveSets = useCallback(
-    (dragIndex, hoverIndex) => {
-      const dragSet = sets[dragIndex];
-      setSets(
-        update(sets, {
-          $splice: [
-            [dragIndex, 1],
-            [hoverIndex, 0, dragSet],
-          ],
-        })
-      );
-    },
-    [sets]
-  );
-  const renderSet = (set, index) => {
-    return (
-      <Set
-        key={set.id}
-        index={index}
-        id={set.id}
-        text={set.duration}
-        moveSet={moveSets}
-      />
-    );
-  };
 
   return (
     <>

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Helmet from "react-helmet";
 import { FaInfoCircle } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { Button, showToast } from "../../components";
 import { vl } from "../../lib";
 import { logIn } from "../../lib/axios";
@@ -12,11 +12,9 @@ const Login = () => {
   const [input, setInput] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (readTokens().ok) {
-      navigate(`/cp/${getUsernameFromToken()}`, { replace: true });
-    }
-  }, []);
+  if (readTokens().ok) {
+    return <Navigate to={`/cp/${getUsernameFromToken()}`} />;
+  }
 
   const validate = ({ email, password }) => {
     let res1 = vl.validateEmail(email);

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { FaInfoCircle } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { Button, showToast } from "../../components";
 import { vl } from "../../lib";
 import { getUsernameFromToken, readTokens } from "../../lib/tokenFunctions";
@@ -18,12 +18,9 @@ const Register = () => {
   });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (readTokens().ok) {
-      navigate(`/cp/${getUsernameFromToken()}`, { replace: true });
-    }
-    // eslint-disable-next-line
-  }, []);
+  if (readTokens().ok) {
+    return <Navigate to={`/cp/${getUsernameFromToken()}`} />;
+  }
 
   const proceedToRegister = async (e) => {
     e.preventDefault();
