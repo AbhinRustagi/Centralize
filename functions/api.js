@@ -7,8 +7,6 @@ const { registerUser } = require("./auth/register");
 const { tryLogin } = require("./auth/login");
 const { getUserFromId } = require("./firebase/functions");
 
-require("dotenv").config();
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors("*"));
