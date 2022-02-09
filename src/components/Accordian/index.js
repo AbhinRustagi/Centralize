@@ -1,1 +1,1 @@
-export { default as Accordian } from "./accordian";
+export { default } from "./accordian";

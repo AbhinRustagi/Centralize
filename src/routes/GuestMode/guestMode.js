@@ -1,14 +1,18 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import Accordian from "components/Accordian";
+import Button from "components/Button";
+import TimerCircle from "components/TimerCircle";
+import Toast from "components/Toast";
+import { useAudio, useTimer } from "hooks";
+import update from "immutability-helper";
+import { getUsernameFromToken, readTokens } from "lib/tokenFunctions";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import Helmet from "react-helmet";
 import { FaPlay, FaPlus, FaStop } from "react-icons/fa";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { Navigate } from "react-router-dom";
-import { Accordian, Button, showToast, TimerCircle } from "../../components";
-import { useAudio, useTimer } from "../../hooks";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import update from "immutability-helper";
-import { getUsernameFromToken, readTokens } from "../../lib/tokenFunctions";
+import { preDefinedSets } from "./config";
 
 const GuestMode = () => {
   const [sets, setSets] = useState([]);
@@ -60,6 +64,7 @@ const GuestMode = () => {
     },
     [sets]
   );
+  
   const renderSet = (set, index) => {
     return (
       <Set
@@ -76,24 +81,13 @@ const GuestMode = () => {
     return <Navigate to={`/cp/${getUsernameFromToken()}`} />;
   }
 
-  const definedSets = [
-    { text: "None Selected", value: "1-1" },
-    { text: "15 Mins/5 Mins", value: "15-5" },
-    { text: "20 Mins/10 Mins", value: "20-10" },
-    { text: "25 Mins/5 Mins", value: "25-5" },
-    { text: "35 Mins/5 Mins", value: "35-5" },
-    { text: "40 Mins/10 Mins", value: "40-10" },
-    { text: "45 Mins/15 Mins", value: "45-15" },
-    { text: "50 Mins/10 Mins", value: "50-10" },
-  ];
-
   // Event Handlers
 
   const addSet = (e) => {
     e.preventDefault();
 
     if (!input) {
-      showToast("Please select a valid set.", "danger");
+      Toast("Please select a valid set.", "danger");
       return;
     }
 
@@ -126,11 +120,11 @@ const GuestMode = () => {
 
   const startTimerMiddleware = () => {
     if (sets.length === 0) {
-      showToast("Please add a Pomodoro.", "danger");
+      Toast("Please add a Pomodoro.", "danger");
       return;
     }
     if (timerId !== null) {
-      showToast("Another timer running", "danger");
+      Toast("Another timer running", "danger");
       return;
     }
 
@@ -235,18 +229,18 @@ const GuestMode = () => {
               setInput(e.target.value);
             }}
           >
-            {definedSets.map((set) => (
+            {preDefinedSets.map((set) => (
               <option className="p-1 block" value={set.value} key={set.value}>
                 {set.text}
               </option>
             ))}
           </select>
-          <Button onClick={addSet} role="btn" type="primary">
+          <Button onClick={addSet} variant="primary">
             <FaPlus />
           </Button>
         </form>
         <div className="flex flex-wrap justify-center gap-1 mt-3">
-          <Button onClick={startTimerMiddleware} role="btn" type="green">
+          <Button onClick={startTimerMiddleware} variant="green">
             <FaPlay />
             Start
           </Button>
@@ -255,8 +249,7 @@ const GuestMode = () => {
               e.preventDefault();
               clearTimer(timerId);
             }}
-            type="red"
-            role="btn"
+            variant="red"
           >
             <FaStop />
             Clear

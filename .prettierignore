@@ -1,0 +1,9 @@
+build
+node_modules
+public
+package-lock.json
+package.json
+.netlify/
+Readme.md
+postcss.config.js
+tailwind.config.js

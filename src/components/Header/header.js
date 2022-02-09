@@ -1,8 +1,8 @@
+import Button from "components/Button";
+import { readTokens, removeTokens } from "lib/tokenFunctions";
 import React, { useEffect, useState } from "react";
 import { FiMenu } from "react-icons/fi";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Button } from "..";
-import { readTokens, removeTokens } from "../../lib/tokenFunctions";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [state, setState] = useState(false);
@@ -64,16 +64,17 @@ const Header = () => {
             ) : null}
             {auth ? (
               <li>
-                <Button role="btn" type="red" onClick={proceedToLogOut}>
+                <Button variant="red" onClick={proceedToLogOut}>
                   Logout
                 </Button>
               </li>
             ) : (
               <li>
                 <Button
-                  type="primary"
-                  wFull
-                  href="/login"
+                  role="anchor"
+                  variant="primary"
+                  width="full"
+                  anchorProps={{ href: "/login" }}
                   onClick={toggleHeader}
                 >
                   Login

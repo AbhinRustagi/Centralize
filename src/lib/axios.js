@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setTokens } from "./tokenFunctions";
+import { setTokens } from "lib/tokenFunctions";
 
 const ENDPOINT = "https://centralize.abhinrustagi.xyz/.netlify/functions/api";
 

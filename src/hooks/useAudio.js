@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { alertSounds } from "../utils";
+import { useEffect, useState } from "react";
+import { alerts } from "utils";
 
-const useAudio = (url = alertSounds[1].url) => {
+const useAudio = (url = alerts[1].url) => {
   const [audio] = useState(new Audio(url));
   const [playing, setPlaying] = useState(false);
 

@@ -1,7 +1,7 @@
+import Button from "components/Button";
 import React from "react";
-import { FiExternalLink, FiGithub } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
-import { Button } from "..";
+import { FiExternalLink, FiGithub } from "react-icons/fi";
 
 const Footer = () => {
   const { i18n, t } = useTranslation();
@@ -12,13 +12,12 @@ const Footer = () => {
         <div className="flex flex-wrap justify-between gap-2 mb-5 items-center">
           <div className="flex gap-1">
             <Button
-              type="teal"
-              sm
+              variant="teal"
+              size="sm"
               onClick={() => {
                 i18n.changeLanguage("en");
               }}
-              role="btn"
-              _css={
+              overrideCSS={
                 i18n.resolvedLanguage === "en"
                   ? "bg-gradient-to-b from-teal-600 to-teal-700 hover:from-teal-600/60 hover:to-teal-700/60"
                   : ""
@@ -27,13 +26,12 @@ const Footer = () => {
               EN
             </Button>
             <Button
-              type="teal"
-              sm
+              variant="teal"
+              size="sm"
               onClick={() => {
                 i18n.changeLanguage("fr");
               }}
-              role="btn"
-              _css={
+              overrideCSS={
                 i18n.resolvedLanguage === "fr"
                   ? "bg-gradient-to-b from-teal-600 to-teal-700 hover:from-teal-600/60 hover:to-teal-700/60"
                   : ""

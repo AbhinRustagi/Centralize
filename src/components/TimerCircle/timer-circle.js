@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState, useRef } from "react";
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
+import React, { useEffect, useRef, useState } from "react";
 
 const TimerCircle = ({
   timeLeft = "Please set a time",

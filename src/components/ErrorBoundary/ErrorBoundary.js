@@ -1,5 +1,6 @@
+import Button from "components/Button";
+import Heading from "components/Heading";
 import React from "react";
-import { Button } from "../components";
 
 class ErrorBoundary extends React.Component {
   state = {
@@ -22,14 +23,15 @@ class ErrorBoundary extends React.Component {
 
     return hasError ? (
       <div className="container my-20">
-        <h1 className="font-bold text-3xl">
-          Something went wrong on our end. :(
-        </h1>
-        <h2 className="font-medium text-xl my-3">
+        <Heading.H1 size="4xl">Something went wrong on our end. 😕</Heading.H1>
+        <Heading.H2 w8t="medium" size="xl" overrideCSS="my-3">
           {error && error.toString()}
-        </h2>
+        </Heading.H2>
         <details className="my-3">{info && info.componentStack}</details>
-        <Button href="mailto:hi@abhinrustagi.xyz" extHref type="primary">
+        <Button
+          role="anchor"
+          anchorProps={{ href: "mailto:hi@abhinrustagi.xyz", ext: true }}
+        >
           Send me an email
         </Button>
       </div>

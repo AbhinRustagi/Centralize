@@ -1,7 +1,8 @@
+import { Button, Toast } from "components";
+import Heading from "components/Common/Heading";
+import { fb, vl } from "lib";
 import React, { useState } from "react";
 import Helmet from "react-helmet";
-import { fb, vl } from "../../lib";
-import { Button, showToast } from "../../components";
 import { useNavigate } from "react-router-dom";
 
 const ForgetPassword = () => {
@@ -12,17 +13,17 @@ const ForgetPassword = () => {
     e.preventDefault();
 
     if (!vl.validateEmail(input).success) {
-      showToast("Invalid Email Format", "danger");
+      Toast("Invalid Email Format", "danger");
       return;
     }
 
     await fb.sendResetPasswordLink(input).then((res) => {
       if (res.success) {
-        showToast("Password Reset Link sent", "success");
+        Toast("Password Reset Link sent", "success");
         navigate("/login");
         return;
       }
-      showToast(`There was an error: ${res.message}.`, "danger");
+      Toast(`There was an error: ${res.message}.`, "danger");
       return;
     });
   };
@@ -34,7 +35,9 @@ const ForgetPassword = () => {
       </Helmet>
       <div className="container py-20 flex gap-10 flex-wrap h-full relative items-center justify-center">
         <div className="p-8 rounded-3xl bg-white shadow-md max-w-md w-full">
-          <h1 className="font-bold text-3xl mb-5">Reset Password</h1>
+          <Heading.H1 size="3xl" overrideCSS="mb-5">
+            Reset Password
+          </Heading.H1>
           <form>
             <label className="block mb-1" htmlFor="email">
               Email Address
@@ -49,7 +52,7 @@ const ForgetPassword = () => {
               className="w-full text-base focus:rounded-none focus:outline-none block border border-solid border-gray-800 py-2 px-3 mb-5"
               placeholder="john.doe@gmail.com"
             />
-            <Button role="btn" type="primary" wFull onClick={proceedToSendLink}>
+            <Button variant="primary" width="full" onClick={proceedToSendLink}>
               Continue
             </Button>
           </form>

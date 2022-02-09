@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 
@@ -26,6 +27,13 @@ const Accordian = ({
       </div>
     </>
   );
+};
+
+Accordian.propTypes = {
+  children: PropTypes.node,
+  arrow: PropTypes.bool,
+  defaultState: PropTypes.bool,
+  prompt: PropTypes.string.isRequired,
 };
 
 export default Accordian;

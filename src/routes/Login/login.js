@@ -1,12 +1,15 @@
+import Button from "components/Button";
+import Heading from "components/Common/Heading";
+import Toast from "components/Toast";
+import Tooltip from "components/Tooltip";
+import { validateEmail } from "lib";
+import { logIn } from "lib/axios";
+import { getUsernameFromToken, readTokens } from "lib/tokenFunctions";
 import React, { useState } from "react";
 import Helmet from "react-helmet";
 import { FaInfoCircle } from "react-icons/fa";
-import { Link, useNavigate, Navigate } from "react-router-dom";
-import { Button, showToast } from "../../components";
-import { vl } from "../../lib";
-import { logIn } from "../../lib/axios";
-import { getUsernameFromToken, readTokens } from "../../lib/tokenFunctions";
-import { LOGIN_ROUTE_IMG } from "../../static";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { LOGIN_ROUTE_IMG } from "static";
 
 const Login = () => {
   const [input, setInput] = useState({ email: "", password: "" });
@@ -17,7 +20,7 @@ const Login = () => {
   }
 
   const validate = ({ email, password }) => {
-    let res1 = vl.validateEmail(email);
+    let res1 = validateEmail(email);
 
     return res1.success
       ? { success: true }
@@ -29,13 +32,13 @@ const Login = () => {
 
     const res = validate(input);
     if (!res.success) {
-      showToast(res.message, "danger");
+      Toast(res.message, "danger");
       return;
     }
 
     await logIn(input.email, input.password).then((res) => {
       if (!res.ok) {
-        showToast("There was an error", "danger");
+        Toast("There was an error", "danger");
         return;
       }
 
@@ -50,7 +53,9 @@ const Login = () => {
       </Helmet>
       <div className="container py-20 flex gap-10 flex-wrap h-full relative items-center justify-center">
         <div className="p-8 rounded-3xl shadow-md bg-white max-w-md w-full">
-          <h1 className="font-bold text-3xl mb-5">Welcome Back</h1>
+          <Heading.H1 size="3xl" overrideCSS="mb-5">
+            Welcome Back
+          </Heading.H1>
           <form>
             <label className="block mb-1" htmlFor="email">
               Email Address
@@ -79,17 +84,16 @@ const Login = () => {
                 }}
                 className="w-full focus:rounded-none focus:outline-none text-base block border border-solid border-gray-800 py-2 px-3 mb-2"
               />
-              <div
-                className="absolute top-3 right-3"
-                data-tooltip="Must contain one uppercase letter, one lowercase letter, one digit and one special character. (Minimum length: 8 characters)"
-              >
-                <FaInfoCircle />
+              <div className="absolute top-3 right-3">
+                <Tooltip text="Must contain one uppercase letter, one lowercase letter, one digit and one special character. (Minimum length: 8 characters)">
+                  <FaInfoCircle />
+                </Tooltip>
               </div>
             </div>
             <small className="block text-sm mb-5 underline text-right">
               <Link to="/reset-password">Forgot Password?</Link>
             </small>
-            <Button role="btn" type="primary" wFull onClick={proceedToLogIn}>
+            <Button variant="primary" width="full" onClick={proceedToLogIn}>
               Continue
             </Button>
           </form>

@@ -1,12 +1,12 @@
+import Button from "components/Button";
+import Heading from "components/Common/Heading";
+import { getUsernameFromToken, readTokens } from "lib/tokenFunctions";
 import Helmet from "react-helmet";
-import { FaChartBar, FaUserFriends } from "react-icons/fa";
-import { Navigate } from "react-router-dom";
-import { Button } from "../../components";
-import { MdMoneyOff } from "react-icons/md";
-import { LANDING_IMG } from "../../static";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { getUsernameFromToken, readTokens } from "../../lib/tokenFunctions";
+import { FaChartBar, FaUserFriends } from "react-icons/fa";
+import { MdMoneyOff } from "react-icons/md";
+import { Link, Navigate } from "react-router-dom";
+import { LANDING_IMG } from "static";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -23,14 +23,23 @@ const Home = () => {
       <div className="lg:my-24 md:my-16 my-12">
         <div className="container">
           <div className="w-full min-w-300px">
-            <h1 className="font-bold text-5xl lg:text-6xl md:text-center">
+            <Heading.H1
+              size="5xl"
+              overrideCSS="lg:text-6xl md:text-center"
+            >
               {t("home.title.a")}{" "}
               <span className="text-blue-500">{t("home.title.b")}</span>.
-            </h1>
+            </Heading.H1>
             <p className="my-8 text-xl leading-loose md:text-center max-w-3xl font-medium md:mx-auto">
               {t("home.description")}
             </p>
-            <Button jumbo href="/register" type="primary" _css="md:mx-auto">
+            <Button
+              size="jumbo"
+              role="anchor"
+              anchorProps={{ href: "/register" }}
+              variant="primary"
+              overrideCSS="md:mx-auto"
+            >
               {t("home.registerBtn")}
             </Button>
             <p>

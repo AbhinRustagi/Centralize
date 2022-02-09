@@ -1,1 +1,1 @@
-export { default as GuestMode } from "./guestMode";
+export { default } from "./guestMode";

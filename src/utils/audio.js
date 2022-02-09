@@ -1,4 +1,4 @@
-const music = [
+export const music = [
   {
     name: "My Life",
     url: "https://res.cloudinary.com/abhinrustagi/video/upload/v1641456549/centralize/my-life-main-6670_loogti.mp3",
@@ -21,4 +21,13 @@ const music = [
   },
 ];
 
-export default music;
+export const alerts = [
+  {
+    name: "Urgent Simple",
+    url: "https://res.cloudinary.com/abhinrustagi/video/upload/v1641456549/centralize/mixkit-urgent-simple-tone-loop-2976_eda1kk.wav",
+  },
+  {
+    name: "Magic Marimba",
+    url: "https://res.cloudinary.com/abhinrustagi/video/upload/v1641456548/centralize/mixkit-magic-marimba-2820_d0xson.wav",
+  },
+];

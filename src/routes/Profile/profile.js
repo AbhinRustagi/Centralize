@@ -1,3 +1,7 @@
+import Button from "components/Button";
+import Heading from "components/Common/Heading";
+import { getUserDetails } from "lib/axios";
+import { readTokens } from "lib/tokenFunctions";
 import React, { useEffect, useState } from "react";
 import Helmet from "react-helmet";
 import {
@@ -8,10 +12,7 @@ import {
   FaUserCog,
 } from "react-icons/fa";
 import { Navigate, useParams } from "react-router-dom";
-import { Button } from "../../components";
-import { AVATAR_PIC } from "../../static";
-import { getUserDetails } from "../../lib/axios";
-import { readTokens } from "../../lib/tokenFunctions";
+import { AVATAR_PIC } from "static";
 
 const Profile = () => {
   const params = useParams();
@@ -32,9 +33,9 @@ const Profile = () => {
   //   e.preventDefault();
   //   fb.sendAccountVerificationEMail().then((res) => {
   //     if (res.success) {
-  //       showToast("Email Sent", "success");
+  //       Toast("Email Sent", "success");
   //     } else {
-  //       showToast("There was an error: " + res.message, "danger");
+  //       Toast("There was an error: " + res.message, "danger");
   //     }
   //   });
   // };
@@ -81,7 +82,7 @@ const Profile = () => {
               </p>
             </div>
           </div>
-          <Button role="btn" sm type="primary" onClick={() => {}}>
+          <Button size="sm" onClick={() => {}}>
             <FaEdit />
             Edit Profile
           </Button>
@@ -89,26 +90,48 @@ const Profile = () => {
       </div>
       <div className="container my-12">
         <div className="mb-10 flex items-center gap-4 flex-wrap">
-          <Button href="." type="primary" sm>
+          <Button role="anchor" anchorProps={{ href: "." }} size="sm">
             <FaUserAlt /> Sets
           </Button>
-          <Button href="." type="green" sm>
+          <Button
+            role="anchor"
+            anchorProps={{ href: "." }}
+            type="green"
+            size="sm"
+          >
             <FaChartPie /> Record
           </Button>
-          <Button href="." type="primaryGray" sm>
+          <Button
+            role="anchor"
+            anchorProps={{ href: "." }}
+            type="primaryGray"
+            size="sm"
+          >
             <FaUserCog /> Profile Settings
           </Button>
         </div>
-        <h2 className="text-3xl font-bold">Sets</h2>
+        <Heading.H2 size="3xl">Sets</Heading.H2>
         <div className="flex gap-4 items-center my-4">
           <div className="p-5 rounded bg-violet-100">
-            <h3 className="font-medium text-lg mb-3">Set Name</h3>
+            <Heading.H3 w8t="medium" size="lg" overrideCSS="mb-3">
+              Set Name
+            </Heading.H3>
             <div className="flex gap-3 items-center">
-              <Button href="." type="outlineRed" sm>
+              <Button
+                role="anchor"
+                anchorProps={{ href: "." }}
+                type="outlineRed"
+                size="sm"
+              >
                 <FaTrash />
                 Delete
               </Button>
-              <Button href="." type="outline" sm>
+              <Button
+                role="anchor"
+                anchorProps={{ href: "." }}
+                type="outline"
+                size="sm"
+              >
                 <FaEdit />
                 Edit
               </Button>

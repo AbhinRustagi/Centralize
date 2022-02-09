@@ -1,1 +1,1 @@
-export { default as TimerCircle } from "./timer-circle";
+export { default } from "./timer-circle";
